@@ -30,10 +30,12 @@ button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
 .obj b{display:flex;align-items:center;gap:4px;font-size:18px;font-weight:750;letter-spacing:-.3px}
 .obj b span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .obj svg{width:18px;height:18px;flex:none;color:var(--mu)}
-.tabs{display:flex;gap:24px;margin-top:10px}
-.tabs button{border:0;background:none;padding:8px 0 12px;font-weight:650;font-size:15px;color:var(--mu);position:relative}
+.tabs{display:flex;gap:24px;margin:10px 0 -1px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;white-space:nowrap;border:0;background:none;padding:8px 0 12px;font-weight:650;font-size:15px;color:var(--mu);position:relative}
 .tabs button.on{color:var(--tx)}
-.tabs button.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--ac)}
+.tabs button.on::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;border-radius:3px 3px 0 0;background:var(--ac)}
+@media (max-width:440px){.tabs{justify-content:space-between;gap:12px}}
 
 /* списки */
 main{padding:2px 16px calc(env(safe-area-inset-bottom,0px) + 130px)}
@@ -78,6 +80,13 @@ button.pr{text-decoration:underline dotted;text-underline-offset:3px}
 .go:active{transform:scale(.97)}
 .go:disabled{opacity:.4}
 .go svg{width:17px;height:17px;fill:currentColor}
+.dock.sum{padding:12px 18px}
+.dkc{flex:none;font-size:12px;font-weight:700;padding:5px 10px;border-radius:99px;background:rgba(255,255,255,.1)}
+.dkc.on{background:var(--ac);color:var(--ink)}
+.tg{width:50px;height:30px;flex:none;border:0;border-radius:99px;background:var(--ln2);position:relative;transition:background .2s;padding:0}
+.tg i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.tg.on{background:var(--ac)}
+.tg.on i{transform:translateX(20px)}
 
 /* кнопки */
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:14px;border:1px solid var(--ln2);background:var(--sf);color:var(--tx);font-weight:700;font-size:15px;margin:10px 0 0}
@@ -175,12 +184,16 @@ const K='elek_v1';
 const BOLT='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>';
 const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 const UNITS=['шт','м','час','модуль','компл'];
-const XG='Разовые работы';
+const XG='Разовые работы',CG='Расходные материалы';
+const CUNITS=['шт','м','упак','компл','кг'];
+// работы, добавленные в версии 2: им даны свои id, чтобы при обновлении не сдвинулись старые
+const V2=['w26','w27','w28','w29'];
 const W0=[
 ['Каркас и обшивка',[['Отверстие в стойке или балке под кабель','шт'],['Проход через перекрытие или стену с гильзой','шт'],['Отверстие в ГКЛ под подрозетник','шт']]],
 ['Кабель',[['Прокладка кабеля, весь метраж','м']]],
 ['Установка',[['Подрозетник для ГКЛ','шт'],['Розетка','шт'],['Выключатель','шт'],['Силовая розетка под плиту','шт'],['Распаечная коробка для ГКЛ: установка и расключение','шт'],['Люстра или светильник','шт'],['Светодиодная лента','м'],['Подключение плиты, бойлера, тёплого пола','шт'],['Уличная розетка','шт'],['Фасадный светильник','шт']]],
-['Щиток и ввод',[['Ввод кабеля в дом от столба','шт'],['Контур заземления','шт'],['Установка щита накладного','шт'],['Установка щита встраиваемого','шт'],['Сборка щита','модуль'],['Автомат, УЗО, дифавтомат','шт']]],
+['Щиток и ввод',[['Ввод кабеля в дом от столба','шт'],['Контур заземления','шт'],['Установка щита накладного','шт'],['Установка щита встраиваемого','шт'],['Сборка щита','модуль'],['Автомат, УЗО, дифавтомат','шт'],
+ ['Реле углекислого газа','шт','w26'],['УЗДП (защита от дуги)','шт','w27'],['Подключение вентиляции','шт','w28'],['Фотореле','шт','w29']]],
 ['Слаботочка',[['Прокладка UTP','м'],['Прокладка коаксиального кабеля для ЦТВ','м'],['Интернет-розетка RJ45 или ТВ-розетка','шт']]],
 ['Прочее',[['Выезд или диагностика','шт'],['Поиск неисправности','час']]]];
 const M0=[
@@ -207,13 +220,17 @@ const $=id=>document.getElementById(id);
 const uid=p=>p+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 
 // ---------- данные ----------
-// работы и материалы общие для всех объектов; у объекта свои количества (q, m), отметки «куплено» (b) и разовые позиции (xw, xm)
-function mk(src,pf,price){let i=0;const a=[];src.forEach(([g,it])=>it.forEach(([n,u])=>{const x={id:pf+(++i),g,n,u};if(price)x.p=0;a.push(x)}));return a}
-function newObj(n){return{id:uid('o'),n:n||'Новый объект',cl:'',nt:'',d:today(),q:{},xw:[],m:{},xm:[],b:{},disc:0}}
-function init(){const o=newObj('Первый объект');return{v:1,works:mk(W0,'w',1),mats:mk(M0,'m',0),objs:[o],cur:o.id,theme:'auto'}}
-function fixObj(o){o.q=o.q||{};o.xw=o.xw||[];o.m=o.m||{};o.xm=o.xm||[];o.b=o.b||{};o.disc=o.disc||0;o.cl=o.cl||'';o.nt=o.nt||'';o.d=o.d||today();return o}
-function migrate(o){o.works=o.works||[];o.mats=o.mats||[];o.objs=(o.objs||[]).map(fixObj);if(!o.objs.length)o.objs.push(newObj());
-if(!o.objs.some(x=>x.id==o.cur))o.cur=o.objs[0].id;o.theme=o.theme||'auto';o.v=1;return o}
+// работы, материалы и расходники общие для всех объектов; у объекта свои количества (q, m, c),
+// отметки «куплено» (b), разовые позиции (xw, xm) и флаг «расходники в смете» (ci)
+function mk(src,pf,price){let i=0;const a=[];src.forEach(([g,it])=>it.forEach(([n,u,id])=>{const x={id:id||pf+(++i),g,n,u};if(price)x.p=0;a.push(x)}));return a}
+function newObj(n){return{id:uid('o'),n:n||'Новый объект',cl:'',nt:'',d:today(),q:{},xw:[],m:{},xm:[],b:{},c:{},ci:true,disc:0}}
+function init(){const o=newObj('Первый объект');return{v:2,works:mk(W0,'w',1),mats:mk(M0,'m',0),cons:[],objs:[o],cur:o.id,theme:'auto'}}
+function fixObj(o){o.q=o.q||{};o.xw=o.xw||[];o.m=o.m||{};o.xm=o.xm||[];o.b=o.b||{};o.c=o.c||{};if(o.ci===undefined)o.ci=true;
+o.disc=o.disc||0;o.cl=o.cl||'';o.nt=o.nt||'';o.d=o.d||today();return o}
+function migrate(o){o.works=o.works||[];o.mats=o.mats||[];o.cons=o.cons||[];
+if((o.v||1)<2)mk(W0,'w',1).filter(x=>V2.includes(x.id)&&!o.works.some(y=>y.id==x.id)).forEach(x=>insertG(o.works,x));
+o.objs=(o.objs||[]).map(fixObj);if(!o.objs.length)o.objs.push(newObj());
+if(!o.objs.some(x=>x.id==o.cur))o.cur=o.objs[0].id;o.theme=o.theme||'auto';o.v=2;return o}
 function load(){try{S=JSON.parse(localStorage.getItem(K))}catch(e){S=null}S=S&&S.v?migrate(S):init()}
 function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){toast('Не удалось сохранить')}}
 
@@ -224,20 +241,24 @@ function mats(o){const a=S.mats.slice();o.xm.forEach(x=>{let i=-1;a.forEach((y,j
 function insertG(L,x){let j=-1;L.forEach((y,k)=>{if(y.g==x.g)j=k});if(j<0)L.push(x);else L.splice(j+1,0,x)}
 function setQ(o,k,id,v){if(v>0)o[k][id]=r2(v);else{delete o[k][id];if(k=='m')delete o.b[id]}}
 function calc(o){let sum=0,miss=0;const lines=[];
-works(o).forEach(x=>{const q=o.q[x.id];if(!(q>0))return;const p=x.p||0;if(!p)miss++;const s=r2(q*p);sum+=s;lines.push({...x,q,p,s})});
+const add=(x,q)=>{if(!(q>0))return;const p=x.p||0;if(!p)miss++;const s=r2(q*p);sum+=s;lines.push({...x,q,p,s})};
+works(o).forEach(x=>add(x,o.q[x.id]));
+if(o.ci)S.cons.forEach(x=>add({...x,g:CG},o.c[x.id]));
 sum=r2(sum);const disc=Math.min(100,Math.max(0,o.disc||0)),dv=Math.round(sum*disc/100);
-return{lines,sum,disc,dv,tot:r2(sum-dv),miss}}
+return{lines,sum,disc,dv,tot:r2(sum-dv),miss,cons:lines.some(l=>l.g==CG)}}
+function conSum(o){let s=0,n=0;S.cons.forEach(x=>{const q=o.c[x.id];if(q>0){n++;s+=q*(x.p||0)}});return{s:r2(s),n}}
+const footNote=c=>c.cons?'Цены указаны за работу и расходные материалы, основные материалы не входят.':'Цены указаны за работу, материалы не входят.';
 
 // ---------- экраны ----------
 function vHead(){const o=cur();
 return `<div class="brand"><div class="logo">${BOLT}</div><button class="obj plain" data-a="objs"><small>Объект</small><b><span>${esc(o.n)}</span>${CHEV}</b></button></div>`+
-`<nav class="tabs">${[['est','Смета'],['mat','Материалы'],['set','Настройки']].map(t=>`<button class="${tab==t[0]?'on':''}" data-a="tab" data-t="${t[0]}">${t[1]}</button>`).join('')}</nav>`}
+`<nav class="tabs">${[['est','Смета'],['mat','Материалы'],['con','Расходники'],['set','Настройки']].map(t=>`<button class="${tab==t[0]?'on':''}" data-a="tab" data-t="${t[0]}">${t[1]}</button>`).join('')}</nav>`}
 
 function secHead(i,g,it,k){const o=cur(),n=it.filter(x=>o[k][x.id]>0).length;
 return `<div class="sec"><span class="ix">${p2(i+1)}</span><h2>${esc(g)}</h2><span class="badge mono" data-cnt="${it.map(x=>x.id).join(',')}" data-k="${k}">${n||''}</span></div>`}
 
 function qRow(x,q,k){let sub;
-if(k=='q')sub=`<button class="pr ${x.p>0?'':'no'}" data-a="${x.own?'exw':'price'}" data-id="${x.id}">${x.p>0?money(x.p)+' / '+esc(x.u):'нет цены · '+esc(x.u)}</button>`;
+if(k!='m')sub=`<button class="pr ${x.p>0?'':'no'}" data-a="${k=='c'?'econ':x.own?'exw':'price'}" data-id="${x.id}">${x.p>0?money(x.p)+' / '+esc(x.u):'нет цены · '+esc(x.u)}</button>`;
 else sub=x.own?`<button class="pr" data-a="exm" data-id="${x.id}">свой вариант · ${esc(x.u)}</button>`:`<span class="pr">${esc(x.u)}</span>`;
 return `<div class="row ${q>0?'sel':''}"><div class="rt"><b>${esc(x.n)}</b>${sub}</div><div class="stp">`+
 `<button data-a="dec" data-k="${k}" data-id="${x.id}" aria-label="Меньше">−</button>`+
@@ -264,6 +285,14 @@ h+=`<div class="two"><button class="btn y" data-a="mshare">Отправить с
 if(done)h+=`<button class="btn" data-a="mreset">Снять отметки «куплено»</button>`;
 return h}
 
+function vCon(){const o=cur();
+if(!S.cons.length)return `<div class="empty"><b>Расходников пока нет</b>Добавь то, что уходит на объект: хомуты, клипсы, дюбели, изоленту. У каждого своя цена.</div><button class="btn y" data-a="econ" data-id="">＋ Добавить расходник</button>`;
+let h=`<div class="box" style="margin-top:16px"><div class="row"><div class="rt"><b>Добавлять в смету</b><span class="pr">${o.ci?'отдельным разделом «Расходные материалы»':'не добавляются, считаются только для тебя'}</span></div>`+
+`<button class="tg ${o.ci?'on':''}" data-a="ci" role="switch" aria-checked="${o.ci}" aria-label="Добавлять расходники в смету"><i></i></button></div></div>`;
+h+=`<div class="sec"><h2>Расходники</h2><span class="badge mono" data-cnt="${S.cons.map(x=>x.id).join(',')}" data-k="c">${S.cons.filter(x=>o.c[x.id]>0).length||''}</span></div>`+
+'<div class="box">'+S.cons.map(x=>qRow(x,o.c[x.id],'c')).join('')+'</div>';
+return h+`<button class="btn" data-a="econ" data-id="">＋ Добавить расходник</button><p class="hint">Список и цены общие для всех объектов, количество у каждого объекта своё. Нажми на цену, чтобы изменить расходник или удалить его.</p>`}
+
 function vSet(){
 let h=`<div class="big">Цены на работы</div><p class="hint">Цена за единицу работы. Меняй когда нужно: смета всегда считается по текущим ценам. Нажми на название, чтобы переименовать, сменить раздел или удалить.</p>`;
 groups(S.works).forEach(([g,it])=>{h+=`<div class="sub-h">${esc(g)}</div><div class="box">`+it.map(x=>`<div class="row"><button class="rt plain" data-a="ew" data-id="${x.id}"><b>${esc(x.n)} <span class="ed">✎</span></b></button>`+
@@ -278,8 +307,11 @@ h+=`<div class="big">Резервная копия</div><p class="hint">Всё �
 h+=`<div class="big">Оформление</div><div class="seg">${[['auto','Как в системе'],['light','Светлая'],['dark','Тёмная']].map(t=>`<button class="${S.theme==t[0]?'on':''}" data-a="theme" data-v="${t[0]}">${t[1]}</button>`).join('')}</div>`;
 return h}
 
-function bar(){const el=$('bar');if(tab!='est'){el.innerHTML='';return}
-const n=calc(cur()).lines.length;
+function bar(){const el=$('bar'),o=cur();
+if(tab=='con'&&S.cons.length){const t=conSum(o);
+el.innerHTML=`<div class="dock sum"><div class="dk"><small>Расходники на объект</small><b class="mono">${money(t.s)}</b></div><span class="dkc ${o.ci?'on':''}">${o.ci?'в смете':'не в смете'}</span></div>`;return}
+if(tab!='est'){el.innerHTML='';return}
+const n=calc(o).lines.length;
 el.innerHTML=`<div class="dock"><div class="dk"><small>Позиций</small><b class="mono">${n}</b></div><button class="go" data-a="calc" ${n?'':'disabled'}>${BOLT}Рассчитать смету</button></div>`}
 
 // обновляем счётчики без перерисовки, чтобы не сбивать ввод
@@ -287,7 +319,7 @@ function counts(){const o=cur();
 document.querySelectorAll('[data-cnt]').forEach(el=>{const k=el.dataset.k,n=el.dataset.cnt.split(',').filter(id=>o[k][id]>0).length;el.textContent=n||''});
 const nb=$('needc');if(nb){const n=mats(o).filter(x=>o.m[x.id]>0).length;nb.textContent=n?' · '+n:''}}
 
-function render(){$('hd').innerHTML=vHead();$('app').innerHTML={est:vEst,mat:vMat,set:vSet}[tab]();bar()}
+function render(){$('hd').innerHTML=vHead();$('app').innerHTML={est:vEst,mat:vMat,con:vCon,set:vSet}[tab]();bar()}
 
 // ---------- нижние листы ----------
 function openSheet(title,body,opt={}){sheetSave=opt.save||null;sheetDel=opt.del||null;
@@ -296,7 +328,15 @@ $('sh').innerHTML=`<div class="ov" data-a="sclose"></div><div class="pn"><div cl
 $('sh').classList.add('open');$('sh').querySelector('.pn').scrollTop=0}
 function closeSheet(){$('sh').classList.remove('open');$('sh').innerHTML='';sheetSave=sheetDel=null}
 const chips=(tg,arr,v)=>`<div class="chips">${arr.map(s=>`<button type="button" class="${s==v?'on':''}" data-a="chip" data-tg="${tg}" data-v="${esc(s)}">${esc(s)}</button>`).join('')}</div>`;
-const unitField=u=>`<label class="lb">Единица</label><input class="in" id="f_u" value="${esc(u)}">${chips('f_u',UNITS,u)}`;
+const unitField=(u,list=UNITS)=>`<label class="lb">Единица</label><input class="in" id="f_u" value="${esc(u)}">${chips('f_u',list,u)}`;
+
+function conSheet(id){const i=S.cons.findIndex(x=>x.id==id),x=i>=0?S.cons[i]:{id:'',n:'',u:'шт',p:0};
+openSheet(i>=0?'Расходник':'Новый расходник',`<label class="lb">Название</label><input class="in" id="f_n" value="${esc(x.n)}" placeholder="Например: Хомуты 200 мм">`+unitField(x.u,CUNITS)+
+`<label class="lb">Цена за единицу, ₽</label><input class="in mono" id="f_p" inputmode="decimal" value="${inV(x.p)}" placeholder="0"><p class="hint">Цена общая для всех объектов.</p>`,
+{save:()=>{const n=$('f_n').value.trim();if(!n){alert('Напиши название');return}const p=num($('f_p').value);
+const nx={id:x.id||uid('c'),n,u:$('f_u').value.trim()||'шт',p:p>0?r2(p):0};if(i>=0)S.cons[i]=nx;else S.cons.push(nx);return true},
+del:i>=0?()=>{if(!confirm('Удалить «'+x.n+'»? Количество по нему во всех объектах тоже удалится.'))return;
+S.cons.splice(i,1);S.objs.forEach(o=>{delete o.c[x.id]});return true}:null})}
 
 function itemSheet(kind,id){
 const L=kind=='w'?S.works:S.mats,i=L.findIndex(x=>x.id==id),x=i>=0?L[i]:{id:'',g:(L[L.length-1]||{}).g||'Прочее',n:'',u:'шт',p:0};
@@ -350,7 +390,7 @@ let h=`<div class="rc"><div class="rch"><div><small>Смета · электро
 groups(c.lines).forEach(([g,ls])=>{h+=`<h4>${esc(g)}</h4>`+ls.map(l=>`<div class="ln"><div class="t">${esc(l.n)}<small class="mono">${fN(l.q)} ${esc(l.u)} × ${l.p?money(l.p):'нет цены'}</small></div><div class="s mono">${money(l.s)}</div></div>`).join('')});
 h+=`<div class="tl"><div class="sm"><span>Сумма</span><b class="mono">${money(c.sum)}</b></div>`+
 `<div class="sm"><span>Скидка</span><span class="dv"><span class="mono" id="e_dv">${c.dv?'−'+money(c.dv):''}</span><label class="pf"><input class="mono" id="f_disc" inputmode="decimal" enterkeyhint="done" value="${inV(c.disc)}" placeholder="0" aria-label="Скидка в процентах"><span>%</span></label></span></div></div>`;
-h+=`<div class="grand"><span>Итого</span><b class="mono" id="e_tot">${money(c.tot)}</b></div><p class="hint" style="margin-top:12px">Цены указаны за работу, материалы не входят.</p></div>`;
+h+=`<div class="grand"><span>Итого</span><b class="mono" id="e_tot">${money(c.tot)}</b></div><p class="hint" style="margin-top:12px">${footNote(c)}</p></div>`;
 if(c.miss)h+=`<div class="note bad">Позиций без цены: ${c.miss}. Они посчитаны как 0 ₽. Цены ставятся в «Настройках».</div>`;
 h+=`<div class="two"><button class="btn y" data-a="eshare">Отправить</button><button class="btn" data-a="ecopy">Скопировать</button></div>`;
 openSheet('Смета',h)}
@@ -360,7 +400,7 @@ function estText(o){const c=calc(o);
 let t=`Смета на электромонтажные работы\nОбъект: ${o.n}\n`+(o.cl?`Заказчик: ${o.cl}\n`:'')+`Дата: ${fmtD(today())}\n`,i=0;
 groups(c.lines).forEach(([g,ls])=>{t+=`\n${g}\n`;ls.forEach(l=>{t+=`${++i}. ${l.n}: ${fN(l.q)} ${l.u} × ${money(l.p)} = ${money(l.s)}\n`})});
 t+='\n';if(c.disc)t+=`Сумма: ${money(c.sum)}\nСкидка ${fN(c.disc)}%: −${money(c.dv)}\n`;
-return t+`Итого: ${money(c.tot)}\n\nЦены указаны за работу, материалы не входят.`}
+return t+`Итого: ${money(c.tot)}\n\n${footNote(c)}`}
 function matText(o){const need=mats(o).filter(x=>o.m[x.id]>0&&!o.b[x.id]);if(!need.length)return'';
 let t=`Купить для объекта «${o.n}»\n`;groups(need).forEach(([g,it])=>{t+=`\n${g}\n`;it.forEach(x=>{t+=`— ${x.n}: ${fN(o.m[x.id])} ${x.u}\n`})});return t.trim()}
 
@@ -399,6 +439,8 @@ case 'exm':xmSheet(D.id);return;
 case 'xm':xmSheet('',D.g);return;
 case 'ew':itemSheet('w',D.id);return;
 case 'em':itemSheet('m',D.id);return;
+case 'econ':conSheet(D.id);return;
+case 'ci':{const o=cur();o.ci=!o.ci;break}
 case 'chip':{const f=$(D.tg);if(f)f.value=D.v;b.parentNode.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x==b));return}
 case 'calc':estSheet();return;
 case 'eshare':share(estText(cur()));return;
