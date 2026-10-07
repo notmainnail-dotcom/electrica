@@ -4,462 +4,832 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Электросмета">
-<meta name="theme-color" content="#F2F1EC">
+<meta name="apple-mobile-web-app-title" content="English">
+<meta name="theme-color" content="#f3f4fa">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
-<title>Электросмета</title>
+<title>English</title>
 <style>
-:root{--bg:#F2F1EC;--sf:#FFFFFF;--sf2:#EBE9E2;--ln:rgba(20,21,23,.08);--ln2:rgba(20,21,23,.15);--tx:#141517;--mu:#6F6E69;--ac:#FFCD1F;--acd:#8A6A00;--ink:#141517;--tint:rgba(255,205,31,.17);--grid:rgba(20,21,23,.05);--ok:#16A065;--bad:#D33A3F;--hd:rgba(242,241,236,.85);--dock:#141517;--dtx:#F2F1EC;--sh:0 1px 2px rgba(20,21,23,.05);color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E0F11;--sf:#17181B;--sf2:#22242A;--ln:rgba(255,255,255,.07);--ln2:rgba(255,255,255,.13);--tx:#F1F0EB;--mu:#8D9099;--ac:#FFD23F;--acd:#FFD23F;--ink:#121315;--tint:rgba(255,210,63,.09);--grid:rgba(255,255,255,.028);--ok:#3DDC97;--bad:#FF6B6B;--hd:rgba(14,15,17,.84);--dock:#1E2025;--dtx:#F1F0EB;--sh:none;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0E0F11;--sf:#17181B;--sf2:#22242A;--ln:rgba(255,255,255,.07);--ln2:rgba(255,255,255,.13);--tx:#F1F0EB;--mu:#8D9099;--ac:#FFD23F;--acd:#FFD23F;--ink:#121315;--tint:rgba(255,210,63,.09);--grid:rgba(255,255,255,.028);--ok:#3DDC97;--bad:#FF6B6B;--hd:rgba(14,15,17,.84);--dock:#1E2025;--dtx:#F1F0EB;--sh:none;color-scheme:dark}
+:root{--bg:#f3f4fa;--card:#fff;--soft:#eceef7;--tx:#141933;--mu:#6b7190;--bd:rgba(20,25,70,.08);--sh:0 8px 28px rgba(35,40,100,.08);--ac:#2563eb;--at:rgba(37,99,235,.12);--ok:#059669;--okt:rgba(16,185,129,.14);--wr:#e11d48;--wrt:rgba(244,63,94,.12);--amt:#b45309;--nav:rgba(255,255,255,.82);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0d17;--card:#151929;--soft:#1f2438;--tx:#eef0fb;--mu:#8a90ad;--bd:rgba(255,255,255,.07);--sh:0 8px 28px rgba(0,0,0,.35);--ac:#60a5fa;--at:rgba(96,165,250,.14);--ok:#34d399;--okt:rgba(52,211,153,.14);--wr:#fb7185;--wrt:rgba(251,113,133,.14);--amt:#fbbf24;--nav:rgba(21,25,41,.82);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b0d17;--card:#151929;--soft:#1f2438;--tx:#eef0fb;--mu:#8a90ad;--bd:rgba(255,255,255,.07);--sh:0 8px 28px rgba(0,0,0,.35);--ac:#60a5fa;--at:rgba(96,165,250,.14);--ok:#34d399;--okt:rgba(52,211,153,.14);--wr:#fb7185;--wrt:rgba(251,113,133,.14);--amt:#fbbf24;--nav:rgba(21,25,41,.82);color-scheme:dark}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
-body{margin:0 auto;max-width:600px;min-height:100vh;color:var(--tx);font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",sans-serif;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
-button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
-.mono{font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums;letter-spacing:-.2px}
-.plain{border:0;background:none;padding:0;text-align:left}
-
-/* шапка */
-#hd{position:sticky;top:0;z-index:5;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 0;background:var(--hd);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);border-bottom:1px solid var(--ln)}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{width:38px;height:38px;border-radius:11px;background:var(--ac);display:grid;place-items:center;flex:none;box-shadow:0 4px 14px rgba(255,205,31,.35)}
-.logo svg{width:20px;height:20px;fill:var(--ink)}
-.obj{flex:1;min-width:0}
-.obj small{display:block;font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--mu)}
-.obj b{display:flex;align-items:center;gap:4px;font-size:18px;font-weight:750;letter-spacing:-.3px}
-.obj b span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.obj svg{width:18px;height:18px;flex:none;color:var(--mu)}
-.tabs{display:flex;gap:24px;margin:10px 0 -1px;overflow-x:auto;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-.tabs button{flex:none;white-space:nowrap;border:0;background:none;padding:8px 0 12px;font-weight:650;font-size:15px;color:var(--mu);position:relative}
-.tabs button.on{color:var(--tx)}
-.tabs button.on::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;border-radius:3px 3px 0 0;background:var(--ac)}
-@media (max-width:440px){.tabs{justify-content:space-between;gap:12px}}
-
-/* списки */
-main{padding:2px 16px calc(env(safe-area-inset-bottom,0px) + 130px)}
-.sec{display:flex;align-items:center;gap:10px;margin:24px 2px 9px}
-.ix{font:700 11px/1 ui-monospace,"SF Mono",Menlo,Consolas,monospace;color:var(--acd);background:var(--tint);padding:4px 6px;border-radius:6px}
-.sec h2{margin:0;flex:1;font-size:12.5px;font-weight:750;letter-spacing:1px;text-transform:uppercase}
-.badge{min-width:22px;height:22px;padding:0 7px;border-radius:99px;background:var(--ac);color:var(--ink);font-size:12px;font-weight:700;line-height:22px;text-align:center}
-.badge:empty{display:none}
-.box{background:var(--sf);border:1px solid var(--ln);border-radius:16px;overflow:hidden;box-shadow:var(--sh)}
-.row{display:flex;align-items:center;gap:12px;padding:12px 12px 12px 15px;border-top:1px solid var(--ln);position:relative;transition:background .2s}
-.box>.row:first-child{border-top:0}
-.row.sel{background:var(--tint)}
-.row.sel::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:0 3px 3px 0;background:var(--ac)}
-.rt{flex:1;min-width:0;display:block}
-.rt b{display:block;font-size:15px;font-weight:600;line-height:1.3}
-.pr{display:inline-block;border:0;background:none;padding:3px 0 0;margin:0;font:500 12.5px/1.3 ui-monospace,"SF Mono",Menlo,Consolas,monospace;color:var(--mu);text-align:left}
-button.pr{text-decoration:underline dotted;text-underline-offset:3px}
-.pr.no{color:var(--bad)}
-.stp{display:flex;align-items:center;flex:none;background:var(--sf2);border-radius:12px;padding:2px}
-.stp button{width:34px;height:36px;border:0;background:none;font-size:20px;line-height:1;border-radius:10px;color:var(--tx)}
-.stp button:active{background:var(--ln2)}
-.stp input{width:60px;height:36px;border:0;border-radius:9px;background:var(--sf);text-align:center;font:600 16px ui-monospace,"SF Mono",Menlo,Consolas,monospace;color:var(--tx);padding:0;-webkit-appearance:none;appearance:none}
-.stp input:focus{outline:2px solid var(--ac);outline-offset:0}
-.stp input::placeholder{color:var(--mu);opacity:.55}
-.add{display:flex;align-items:center;gap:6px;width:100%;border:0;border-top:1px dashed var(--ln2);background:none;padding:12px 15px;color:var(--acd);font-weight:650;font-size:14px;text-align:left}
-.note{display:block;width:100%;text-align:left;border:1px solid rgba(255,205,31,.5);border-radius:14px;padding:12px 14px;margin:16px 0 0;font-size:14px;font-weight:600;background:var(--tint);color:var(--tx)}
-.note.bad{background:rgba(211,58,63,.1);border-color:rgba(211,58,63,.3);color:var(--bad)}
-.hint{font-size:13px;color:var(--mu);margin:10px 2px 0}
-.meta{display:block;width:100%;text-align:left;margin-top:16px;padding:12px 14px;border-radius:14px;border:1px dashed var(--ln2);background:none;font-size:14px;color:var(--mu);white-space:pre-wrap}
-.meta b{color:var(--tx);font-weight:600}
-.empty{text-align:center;padding:48px 24px;color:var(--mu);font-size:14px}
-.empty b{display:block;color:var(--tx);font-size:17px;margin-bottom:6px}
-
-/* нижняя панель */
-#bar{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:14px 12px calc(env(safe-area-inset-bottom,0px) + 12px);pointer-events:none}
-#bar:empty{display:none}
-.dock{max-width:576px;margin:0 auto;display:flex;align-items:center;gap:12px;background:var(--dock);color:var(--dtx);border-radius:20px;padding:8px 8px 8px 18px;pointer-events:auto;box-shadow:0 14px 40px rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.06)}
-.dk{flex:1;min-width:0}
-.dk small{display:block;font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;opacity:.6;font-weight:700}
-.dk b{font-size:20px;font-weight:700}
-.go{display:flex;align-items:center;gap:8px;border:0;background:var(--ac);color:var(--ink);font-weight:800;font-size:15px;padding:14px 18px;border-radius:14px;transition:transform .1s}
-.go:active{transform:scale(.97)}
-.go:disabled{opacity:.4}
-.go svg{width:17px;height:17px;fill:currentColor}
-.dock.sum{padding:12px 18px}
-.dkc{flex:none;font-size:12px;font-weight:700;padding:5px 10px;border-radius:99px;background:rgba(255,255,255,.1)}
-.dkc.on{background:var(--ac);color:var(--ink)}
-.tg{width:50px;height:30px;flex:none;border:0;border-radius:99px;background:var(--ln2);position:relative;transition:background .2s;padding:0}
-.tg i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
-.tg.on{background:var(--ac)}
-.tg.on i{transform:translateX(20px)}
-
-/* кнопки */
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:14px;border:1px solid var(--ln2);background:var(--sf);color:var(--tx);font-weight:700;font-size:15px;margin:10px 0 0}
-.btn.y{background:var(--ac);border-color:transparent;color:var(--ink)}
-.btn.r{color:var(--bad)}
-.btn:active{transform:scale(.99)}
-.two{display:flex;gap:10px}
-.two .btn{margin-top:14px}
-.seg{display:flex;gap:3px;background:var(--sf2);border-radius:12px;padding:3px;margin-top:16px}
-.seg button{flex:1;border:0;background:none;padding:9px 6px;border-radius:9px;font-weight:650;font-size:14px;color:var(--mu)}
-.seg button.on{background:var(--sf);color:var(--tx);box-shadow:0 1px 4px rgba(0,0,0,.12)}
-.ib{width:34px;height:34px;flex:none;border:0;border-radius:10px;background:var(--sf2);color:var(--mu);font-size:15px}
-.amt{font-size:13.5px;font-weight:600;white-space:nowrap}
-
-/* закупка */
-.chk{width:100%;border:0;border-top:1px solid var(--ln);background:none;text-align:left;font:inherit;color:inherit}
-.cb{width:24px;height:24px;flex:none;border-radius:7px;border:2px solid var(--ln2);display:grid;place-items:center;font-size:14px;font-weight:800;color:#fff}
-.chk.done .cb{background:var(--ok);border-color:var(--ok)}
-.chk.done .rt b{text-decoration:line-through;color:var(--mu);font-weight:500}
-.qt{flex:none;font-weight:700;font-size:15px}
-.chk.done .qt{color:var(--mu)}
-.prog{display:flex;align-items:center;gap:16px;margin-top:16px;padding:14px 16px;border-radius:16px;background:var(--sf);border:1px solid var(--ln)}
-.prog b{font-size:20px;display:block}
-.prog small{color:var(--mu);font-size:12px}
-.pb{flex:1;height:8px;border-radius:9px;background:var(--sf2);overflow:hidden}
-.pb i{display:block;height:100%;background:var(--ok);border-radius:9px;transition:width .3s}
-
-/* настройки */
-.big{font-size:22px;font-weight:800;letter-spacing:-.4px;margin:28px 2px 0}
-.sub-h{font-size:12px;font-weight:750;letter-spacing:1px;text-transform:uppercase;color:var(--mu);margin:18px 2px 8px}
-.pf{display:flex;align-items:center;gap:5px;flex:none;background:var(--sf2);border-radius:11px;padding:0 10px 0 4px}
-.pf input{width:76px;border:0;background:none;text-align:right;font:600 16px ui-monospace,"SF Mono",Menlo,Consolas,monospace;color:var(--tx);padding:9px 0;-webkit-appearance:none;appearance:none}
-.pf input:focus{outline:none}
-.pf:focus-within{box-shadow:0 0 0 2px var(--ac)}
-.pf input::placeholder{color:var(--mu);opacity:.55}
-.pf span{font-size:12px;color:var(--mu);white-space:nowrap;min-width:38px}
-.ed{font-size:12px;color:var(--mu);font-weight:400}
-
-/* нижние листы */
+html{background:var(--bg)}
+body{margin:0 auto;max-width:560px;min-height:100vh;color:var(--tx);font:16px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px calc(env(safe-area-inset-bottom,0px) + 110px);background:radial-gradient(520px 320px at 0% -60px,rgba(37,99,235,.2),transparent 70%),radial-gradient(480px 300px at 100% -40px,rgba(6,182,212,.16),transparent 70%),var(--bg);background-repeat:no-repeat}
+button{font:inherit;color:inherit;cursor:pointer}
+.top{margin:4px 2px 14px}
+.top small{color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.6px;font-size:12px}
+h1{font-size:32px;margin:2px 0 0;letter-spacing:-.7px;font-weight:800}
+h1.h1s{font-size:26px;letter-spacing:-.4px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.7px;color:var(--mu);margin:26px 4px 10px;font-weight:800}
+.mu{color:var(--mu);font-size:14px}
+.card{background:var(--card);border-radius:22px;padding:16px;margin:0 0 12px;box-shadow:var(--sh);border:1px solid var(--bd)}
+.hero{background:linear-gradient(135deg,#2563eb 0%,#0ea5e9 55%,#06b6d4 100%);color:#fff;border-radius:26px;padding:18px;display:flex;gap:16px;align-items:center;box-shadow:0 14px 34px rgba(14,165,233,.32);margin-bottom:14px}
+.hero.nt{background:linear-gradient(135deg,#0f766e 0%,#0d9488 50%,#22c55e 100%);box-shadow:0 14px 34px rgba(13,148,136,.32)}
+.hero.wrap{flex-wrap:wrap}
+.hero .info{flex:1;min-width:0}
+.hero b{font-size:19px;display:block}
+.hero p{margin:4px 0 0;opacity:.92;font-size:14px}
+.chip{display:inline-block;background:rgba(255,255,255,.22);padding:4px 11px;border-radius:99px;font-size:12px;font-weight:800;margin-top:9px}
+.stats{display:flex;gap:8px;width:100%}
+.stats div{flex:1;background:rgba(255,255,255,.18);border-radius:14px;padding:9px 10px;min-width:0}
+.stats small{display:block;opacity:.85;font-size:12px}
+.stats b{font-size:16px}
+.kp{display:flex;gap:8px;margin:0 0 4px}
+.kp div{flex:1;background:var(--soft);border-radius:14px;padding:9px 10px;min-width:0}
+.kp small{display:block;color:var(--mu);font-size:12px}
+.kp b{font-size:17px}
+.ring{position:relative;flex:none}
+.ring svg{display:block;transform:rotate(-90deg)}
+.ring span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800}
+.seg{display:flex;background:var(--soft);border-radius:14px;padding:4px;gap:4px;margin:0 0 12px}
+.seg button{flex:1;border:0;background:none;padding:9px 2px;border-radius:10px;font-weight:700;color:var(--mu);font-size:14px;min-width:0}
+.seg button.on{background:var(--card);color:var(--tx);box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.note{display:block;width:100%;border:0;text-align:left;border-radius:18px;padding:12px 14px;margin:0 0 12px;font-size:14px;font-weight:600}
+.note.am{background:rgba(245,158,11,.15);color:var(--amt)}
+.note.in{background:var(--at);color:var(--ac)}
+.gh{display:flex;gap:14px;align-items:center}
+.gh .t{flex:1;min-width:0;font-weight:700}
+.gh .mu{font-weight:500;margin-top:2px}
+.st{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border:0;border-top:1px solid var(--bd);width:100%;background:none;text-align:left}
+.card>.st:first-child{border-top:0;padding-top:0}
+.st b{flex:none;width:24px;height:24px;border-radius:8px;border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff}
+.st.d b{background:var(--ok);border-color:var(--ok)}
+.st.d span{color:var(--mu)}
+.ib{border:0;background:var(--soft);color:var(--mu);width:34px;height:34px;border-radius:11px;font-size:15px;flex:none;font-weight:700}
+.btn{display:block;width:100%;padding:14px;border-radius:16px;border:0;background:linear-gradient(135deg,#2563eb,#0ea5e9);color:#fff;font-weight:700;margin:0 0 10px;box-shadow:0 8px 20px rgba(37,99,235,.28);transition:transform .1s}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.45}
+.btn.g{background:var(--soft);color:var(--ac);box-shadow:none}
+.btn.r{background:var(--wrt);color:var(--wr);box-shadow:none}
+.li{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--bd)}
+.li:first-child{border-top:0;padding-top:0}
+.li:last-child{padding-bottom:0}
+.lr{width:100%;border-left:0;border-right:0;border-bottom:0;background:none;text-align:left}
+.ico{width:38px;height:38px;border-radius:12px;background:var(--at);color:var(--ac);display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+.ico.dn{background:var(--ok);color:#fff}
+.ht{flex:1;min-width:0}
+.ht b{display:block;font-size:15px}
+.ht small{display:block;color:var(--mu);font-size:13px}
+.plain{border:0;background:none;text-align:left;padding:0}
+.in{width:100%;border-radius:14px;border:1px solid var(--bd);background:var(--soft);color:var(--tx);padding:12px;font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.in.okb{border-color:var(--ok);background:var(--okt)}
+.in.nob{border-color:var(--wr);background:var(--wrt)}
+textarea.mono{font:13px/1.4 ui-monospace,Menlo,monospace;margin-top:4px}
+.hint{font-size:12px;color:var(--mu);margin:8px 2px 0}
+.sb{display:flex;gap:10px;margin-top:14px}
+.sb .btn{margin:0}
+.lh{display:flex;justify-content:space-between;align-items:center;margin:0 0 4px}
+.back{border:0;background:none;color:var(--ac);font-weight:700;padding:6px 0}
+.qb{border:0;background:var(--soft);color:var(--mu);font-weight:700;font-size:13px;padding:7px 12px;border-radius:99px}
+.rule p{margin:0 0 10px}.rule p:last-child{margin:0}
+.rule b{color:var(--ac)}
+.rule ol,.rule ul{margin:0 0 10px;padding-left:20px}
+.rule li{margin:0 0 6px}
+.rule>*:last-child{margin-bottom:0}
+pre{background:var(--soft);border-radius:12px;padding:10px 12px;font:12px/1.45 ui-monospace,Menlo,Consolas,monospace;overflow-x:auto;margin:8px 0 10px;white-space:pre;-webkit-overflow-scrolling:touch;color:var(--tx)}
+code{font:13px ui-monospace,Menlo,Consolas,monospace;background:var(--soft);padding:1px 5px;border-radius:6px;overflow-wrap:anywhere}
+.t{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0 12px}
+.t th,.t td{border-top:1px solid var(--bd);padding:7px 6px;text-align:left;vertical-align:top}
+.t th{color:var(--mu);font-size:12px;text-transform:uppercase;letter-spacing:.4px;border-top:0}
+.t td:first-child,.t th:first-child{padding-left:0}
+.frame{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0 12px;font-size:12px;font-weight:700;text-align:center;line-height:1.25}
+.frame span{flex:1 1 28%;background:var(--at);color:var(--ac);border-radius:8px;padding:8px 3px;min-width:0}
+.frame span.w{flex:1 1 60%}
+@media (min-width:480px){.frame{flex-wrap:nowrap}.frame span{flex:1}.frame span.w{flex:1.7}}
+.frame small{display:block;font-weight:500;color:var(--mu);font-size:10px;margin-top:3px}
+/* главы СДСМ и книжный текст */
+.book p{line-height:1.62;font-size:16.5px}
+.book h3,.rule h3{font-size:18px;margin:20px 0 8px;letter-spacing:-.2px}
+.book>h3:first-child,.rule>h3:first-child{margin-top:0}
+h3.bh{font-size:21px;font-weight:800;margin:28px 4px 12px;letter-spacing:-.3px;line-height:1.25;scroll-margin-top:16px}
+.an{background:rgba(124,58,237,.09);border-radius:14px;padding:12px 14px;margin:12px 0;font-size:15.5px;line-height:1.55}
+.an>b:first-child{display:block;color:#7c3aed;margin-bottom:4px}
+.an>b:first-child::before{content:"🧩 "}
+:root[data-theme="dark"] .an>b:first-child{color:#a78bfa}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .an>b:first-child{color:#a78bfa}}
+.callout{border-left:3px solid var(--ac);background:var(--at);border-radius:0 12px 12px 0;padding:10px 12px;margin:12px 0;font-size:15px;line-height:1.5}
+.callout>b:first-child{display:block;margin-bottom:4px;color:var(--tx)}
+.callout.pro{border-color:#0d9488;background:rgba(13,148,136,.1)}.callout.pro>b:first-child::before{content:"🏢 "}
+.callout.warn{border-color:#d97706;background:rgba(245,158,11,.12)}.callout.warn>b:first-child::before{content:"⚠️ "}
+.callout.bad{border-color:var(--wr);background:var(--wrt)}.callout.bad>b:first-child::before{content:"⛔ "}
+.callout.ok{border-color:var(--ok);background:var(--okt)}.callout.ok>b:first-child::before{content:"✅ "}
+.callout.info>b:first-child::before{content:"💡 "}
+.callout ol,.callout ul{margin:6px 0 0;padding-left:20px}
+.rule table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 12px}
+.rule th,.rule td{border-top:1px solid var(--bd);padding:7px 5px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+.rule th{color:var(--mu);font-size:12px;border-top:0}
+.rule th:first-child,.rule td:first-child{padding-left:0}
+.vs{display:grid;grid-template-columns:1fr;gap:10px;margin:10px 0}
+.vs>div{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:15px}
+@media (min-width:480px){.vs{grid-template-columns:1fr 1fr}}
+.steps{counter-reset:s;list-style:none;padding-left:0!important}
+.steps>li{counter-increment:s;position:relative;padding-left:36px;margin:10px 0!important}
+.steps>li::before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--at);color:var(--ac);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.kbd{font:12px ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--bd);border-bottom-width:2px;border-radius:5px;padding:0 5px;background:var(--soft)}
+mark{background:rgba(245,158,11,.3);color:inherit;border-radius:3px;padding:0 1px}
+.muted{color:var(--mu)}
+.pkt{display:flex;margin:12px 0;border-radius:8px;overflow:hidden;font-size:11px;text-align:center;line-height:1.25}
+.pkt>span{padding:7px 3px;border-right:1px solid rgba(0,0,0,.25);color:#fff;display:flex;flex-direction:column;justify-content:center;min-width:0;overflow-wrap:anywhere}
+.pkt>span small{opacity:.85;font-size:10px}
+.pkt .l2{background:#2563eb}.pkt .l3{background:#16a34a}.pkt .l4{background:#d97706}.pkt .l7{background:#7c3aed}.pkt .tg{background:#db2777}.pkt .lb{background:#0891b2}.pkt .fcs{background:#475569}
+.toc{margin:8px 0 0;padding-left:22px}.toc li{margin:0 0 6px}
+.lk{color:var(--ac);font-weight:600;text-align:left}
+.cg{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--mu);margin:14px 0 4px}
+.cg:first-child{margin-top:0}
+.cmd pre{margin:2px 0 4px}
+.kk{margin:4px 0 0;padding-left:20px}
+.li.off{opacity:.5}
+/* схемы в книге (inline SVG): цвета из темы, подписи — классы */
+.dg{margin:14px 0 16px}
+.dg svg{display:block;width:100%;height:auto;overflow:visible}
+.dg figcaption{font-size:13px;color:var(--mu);margin-top:8px;line-height:1.45}
+.dg .bx{fill:var(--card);stroke:var(--mu);stroke-width:1.5}
+.dg .bx2{fill:var(--soft)}
+.dg .bxd{fill:none;stroke:var(--mu);stroke-width:1.5;stroke-dasharray:5 4}
+.dg .tx{fill:var(--tx);font:700 12px -apple-system,"Segoe UI",Roboto,sans-serif}
+.dg .sm{fill:var(--mu);font:500 10.5px -apple-system,"Segoe UI",Roboto,sans-serif}
+.dg .ln{stroke:var(--mu);stroke-width:2;fill:none}
+.dg .tk{stroke:var(--tx);stroke-width:4;fill:none}
+.dg .lr{stroke:#e11d48;stroke-width:2.2;fill:none}
+.dg .env{fill:#fff;stroke:#475569;stroke-width:1.2}
+.dg .envl{fill:none;stroke:#475569;stroke-width:1.2}
+.dg .pp{fill:rgba(37,99,235,.16);stroke:#2563eb;stroke-width:1.5}
+.dg .b{fill:#2563eb}.dg .g{fill:#16a34a}.dg .o{fill:#d97706}.dg .gr{fill:#64748b}.dg .rr{fill:#e11d48}
+.dg .wt{fill:#fff;font:700 7.5px -apple-system,"Segoe UI",Roboto,sans-serif}
+.dg .wt2{fill:#fff;font:700 9px -apple-system,"Segoe UI",Roboto,sans-serif}
+.dg .am{fill:var(--mu)}.dg .amr{fill:#e11d48}
+.dg .bt{fill:#2563eb}.dg .rd{fill:#e11d48}.dg .gn{fill:#16a34a}.dg .og{fill:#d97706}
+:root[data-theme="dark"] .dg .bt{fill:#60a5fa}:root[data-theme="dark"] .dg .rd{fill:#fb7185}:root[data-theme="dark"] .dg .gn{fill:#4ade80}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dg .bt{fill:#60a5fa}:root:not([data-theme="light"]) .dg .rd{fill:#fb7185}:root:not([data-theme="light"]) .dg .gn{fill:#4ade80}}
+details.chk{background:var(--soft);border-radius:12px;padding:10px 12px;margin:8px 0}
+details.chk summary{color:var(--tx);font-weight:600;line-height:1.4}
+details.chk p{margin:8px 0 0}
+.opt.sel{border-color:var(--ac);background:var(--at)}
+.isp{border-left:3px solid var(--ac);background:var(--at);border-radius:0 12px 12px 0;padding:10px 12px;margin:10px 0;font-size:15px}
+details summary{cursor:pointer;font-weight:700;color:var(--ac);list-style-position:inside}
+details.dp[open] summary{margin-bottom:12px}
+.lt details{margin-top:8px;font-size:14px}
+.lt details[open] summary{margin-bottom:6px}
+.cmd{padding:9px 0;border-top:1px solid var(--bd)}
+.cmd:first-child{border-top:0;padding-top:0}
+.cmd:last-child{padding-bottom:0}
+.cmd code{display:inline-block;margin-bottom:3px}
+.cp{border:0;background:var(--at);color:var(--ac);font-size:12px;font-weight:700;padding:5px 10px;border-radius:99px;margin:-4px 0 4px}
+.ls{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--bd)}
+.ls:first-child{border-top:0;padding-top:0}
+.ls:last-child{padding-bottom:0}
+.ck{flex:none;width:32px;height:32px;border-radius:10px;border:2px solid var(--bd);background:none;font-weight:800;color:var(--mu);font-size:13px}
+.ls.d .ck{background:var(--ok);border-color:var(--ok);color:#fff}
+.ls.d .lt>div:first-child{color:var(--mu)}
+.lt{flex:1;min-width:0}
+.lvr{display:flex;align-items:center;gap:10px;padding:6px 0}
+.lvr span{width:132px;flex:none;font-size:14px;font-weight:600}
+.lvb{flex:1;height:8px;border-radius:9px;background:var(--soft);overflow:hidden}
+.lvb i{display:block;height:100%;border-radius:9px;background:var(--ac)}
+.lvr b{width:42px;text-align:right;font-size:13px;flex:none}
+.hn div{font-size:13px;color:var(--amt);background:rgba(245,158,11,.13);border-radius:10px;padding:7px 10px;margin:8px 0 0}
+.sn{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--bd)}
+.sn:first-child{border-top:0;padding-top:0}
+.sn:last-child{padding-bottom:0}
+.sn .en{flex:1;min-width:0;font-size:17px;line-height:1.45;transition:color .2s,filter .3s}
+.sn .tr{display:block;color:var(--mu);font-size:14px;margin-top:2px}
+.sn.pl .en{color:var(--ac)}
+.blur .en{filter:blur(6px);-webkit-user-select:none;user-select:none}
+.say{border:0;background:var(--at);color:var(--ac);width:36px;height:36px;border-radius:11px;flex:none;font-size:15px}
+.bar{height:8px;border-radius:9px;background:var(--soft);overflow:hidden;margin:0 0 12px}
+.bar i{display:block;height:100%;background:var(--ac);border-radius:9px;transition:width .3s}
+.q{font-size:19px;font-weight:700;margin:4px 0 14px;line-height:1.45}
+.gap{display:inline-block;min-width:56px;border-bottom:2px solid var(--ac);text-align:center;color:var(--ac);padding:0 4px}
+.opt{display:block;width:100%;text-align:left;padding:13px 14px;border-radius:14px;border:2px solid transparent;background:var(--soft);margin:0 0 8px;font-weight:600}
+.opt:disabled{color:var(--tx);opacity:1}
+.opt.ok{border-color:var(--ok);background:var(--okt)}
+.opt.no{border-color:var(--wr);background:var(--wrt)}
+.ans{min-height:56px;border-bottom:2px dashed var(--bd);margin:0 0 12px;padding:0 0 4px}
+.tok{display:inline-block;border:0;background:var(--soft);padding:9px 12px;border-radius:12px;margin:0 6px 8px 0;font-weight:600;font-size:16px}
+.ans .tok{background:var(--at);color:var(--ac)}
+.end{font-weight:700;font-size:18px}
+.fb{border-radius:16px;padding:12px 14px;margin:0 0 12px;font-weight:700;font-size:15px}
+.fb.ok{background:var(--okt);color:var(--ok)}
+.fb.no{background:var(--wrt);color:var(--wr)}
+.fe{font-weight:500;color:var(--tx);margin-top:6px}
+.fc{text-align:center;padding:30px 16px}
+.fc .w{font-size:30px;font-weight:800;letter-spacing:-.5px;margin:8px 0 12px;overflow-wrap:anywhere}
+.fc .w.s{font-size:20px;letter-spacing:0;line-height:1.35}
+.fc .a{font-size:21px;font-weight:600;margin:14px 0 12px;color:var(--ac);overflow-wrap:anywhere}
+.fc .a.s{font-size:16px;line-height:1.45;text-align:left}
+.fc .say{margin:0 auto;display:block}
+.three{display:flex;gap:8px}
+.three .btn{margin:0;padding:14px 4px;font-size:15px}
+.pre{white-space:pre-wrap}
+.big{font:700 24px ui-monospace,Menlo,Consolas,monospace;text-align:center;margin:6px 0 14px;overflow-wrap:anywhere}
+.tf{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:start}
+.tf label{font-size:14px;font-weight:600;color:var(--mu);padding-top:12px}
+.cv{font-size:13px;color:var(--ok);font-weight:700;margin-top:4px}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 10px);width:calc(100% - 24px);max-width:536px;display:flex;gap:2px;background:var(--nav);-webkit-backdrop-filter:blur(20px) saturate(1.6);backdrop-filter:blur(20px) saturate(1.6);border:1px solid var(--bd);border-radius:24px;padding:6px;box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:5}
+nav button{flex:1;min-width:0;border:0;background:none;padding:8px 1px 7px;border-radius:18px;font-size:10.5px;font-weight:700;color:var(--mu);display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap}
+nav svg{width:22px;height:22px}
+nav button.on{color:var(--ac);background:var(--at)}
 #sh{position:fixed;inset:0;z-index:10;display:none}
 #sh.open{display:block}
-#sh .ov{position:absolute;inset:0;background:rgba(8,9,10,.5);animation:fd .2s}
-#sh .pn{position:absolute;left:0;right:0;bottom:0;max-width:600px;margin:0 auto;background:var(--bg);border-radius:24px 24px 0 0;padding:8px 16px calc(env(safe-area-inset-bottom,0px) + 18px);max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:up .28s cubic-bezier(.2,.8,.2,1)}
-.grab{width:38px;height:5px;border-radius:9px;background:var(--mu);opacity:.3;margin:0 auto 10px}
-.sht{display:flex;align-items:center;gap:10px;margin:0 0 6px}
-.sht h3{flex:1;margin:0;font-size:22px;font-weight:800;letter-spacing:-.4px}
-.x{width:34px;height:34px;border-radius:50%;border:0;background:var(--sf2);color:var(--mu);font-size:15px;flex:none}
-.pname{font-weight:600;margin-top:8px}
-.lb{display:block;font-size:11.5px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--mu);margin:16px 2px 7px}
-.in{width:100%;border-radius:12px;border:1px solid var(--ln2);background:var(--sf);color:var(--tx);padding:12px 13px;font:16px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-appearance:none;appearance:none}
-.in:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px var(--tint)}
-.in.mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
-textarea.in{resize:vertical}
-.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
-.chips button{border:1px solid var(--ln2);background:var(--sf);border-radius:99px;padding:7px 13px;font-size:13.5px;font-weight:600}
-.chips button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
-
-/* смета-чек */
-.rc{background:var(--sf);border:1px solid var(--ln);border-radius:18px;padding:18px 16px 16px;margin-top:10px;box-shadow:var(--sh)}
-.rch{display:flex;gap:12px;align-items:flex-start;padding-bottom:14px;border-bottom:2px solid var(--tx)}
-.rch div{flex:1;min-width:0}
-.rch small{display:block;font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--mu);font-weight:700}
-.rch b{display:block;font-size:18px;font-weight:800;margin-top:3px}
-.rch div span{display:block;font-size:13px;color:var(--mu);margin-top:2px}
-.rch>.mono{font-size:12px;color:var(--mu);white-space:nowrap;margin-top:2px}
-.rc h4{margin:16px 0 2px;font-size:11.5px;letter-spacing:1px;text-transform:uppercase;color:var(--acd);font-weight:800}
-.ln{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px dashed var(--ln2)}
-.rc h4+.ln{border-top:0}
-.ln .t{flex:1;min-width:0;font-size:14.5px;font-weight:500}
-.ln .t small{display:block;font-size:12.5px;color:var(--mu);margin-top:2px}
-.ln .s{font-weight:700;font-size:14.5px;white-space:nowrap}
-.tl{margin-top:12px;padding-top:4px;border-top:2px solid var(--tx)}
-.sm{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0 0;font-size:14.5px}
-.dv{display:flex;align-items:center;gap:10px}
-.dv .mono{color:var(--mu);font-size:13.5px}
-.dv .pf input{width:44px}
-.dv .pf span{min-width:0}
-.grand{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;background:var(--ac);color:var(--ink);border-radius:14px;padding:14px 16px}
-.grand span{font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:13px}
-.grand b{font-size:26px;font-weight:800}
-
-#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 100px);transform:translate(-50%,16px);opacity:0;background:var(--dock);color:var(--dtx);padding:10px 18px;border-radius:12px;font-weight:650;font-size:14px;z-index:20;transition:transform .25s,opacity .25s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.25)}
-#toast.on{transform:translate(-50%,0);opacity:1}
+#sh .ov{position:absolute;inset:0;background:rgba(5,8,20,.5);animation:fd .2s}
+#sh .pn{position:absolute;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;background:var(--card);border-radius:26px 26px 0 0;padding:10px 18px calc(env(safe-area-inset-bottom,0px) + 18px);max-height:90vh;overflow-y:auto;animation:up .28s cubic-bezier(.2,.8,.2,1)}
+.grab{width:40px;height:5px;border-radius:9px;background:var(--mu);opacity:.35;margin:0 auto 12px}
+#sh h3{margin:0 0 4px;font-size:21px}
+#toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 12px);transform:translate(-50%,-150%);background:var(--tx);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:700;font-size:14px;z-index:20;transition:transform .3s;width:max-content;max-width:calc(100vw - 32px);text-align:center}
+#toast.on{transform:translate(-50%,0)}
 @keyframes up{from{transform:translateY(100%)}}
 @keyframes fd{from{opacity:0}}
 </style></head><body>
-<header id="hd"></header>
-<main id="app"></main>
-<div id="bar"></div>
+<div id="app"></div>
+<nav id="nav"></nav>
 <div id="sh"></div>
 <div id="toast"></div>
+<script src="lessons.js"></script>
+<script src="nets.js"></script>
+<script src="sdsm/course.js"></script>
+<script src="sdsm/ch01.js"></script>
+<script src="sdsm/ch02.js"></script>
+<script src="sdsm/ch03.js"></script>
+<script src="sdsm/ch04.js"></script>
+<script src="sdsm/ch05.js"></script>
+<script src="book/ch01.js"></script>
+<script src="book/ch02.js"></script>
 <script>
-// Ключ уникален: на том же домене github.io живут трекер (life_v1) и английский (eng_v1)
-const K='elek_v1';
-const BOLT='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>';
-const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
-const UNITS=['шт','м','час','модуль','компл'];
-const XG='Разовые работы',CG='Расходные материалы';
-const CUNITS=['шт','м','упак','компл','кг'];
-// работы, добавленные в версии 2: им даны свои id, чтобы при обновлении не сдвинулись старые
-const V2=['w26','w27','w28','w29'];
-const W0=[
-['Каркас и обшивка',[['Отверстие в стойке или балке под кабель','шт'],['Проход через перекрытие или стену с гильзой','шт'],['Отверстие в ГКЛ под подрозетник','шт']]],
-['Кабель',[['Прокладка кабеля, весь метраж','м']]],
-['Установка',[['Подрозетник для ГКЛ','шт'],['Розетка','шт'],['Выключатель','шт'],['Силовая розетка под плиту','шт'],['Распаечная коробка для ГКЛ: установка и расключение','шт'],['Люстра или светильник','шт'],['Светодиодная лента','м'],['Подключение плиты, бойлера, тёплого пола','шт'],['Уличная розетка','шт'],['Фасадный светильник','шт']]],
-['Щиток и ввод',[['Ввод кабеля в дом от столба','шт'],['Контур заземления','шт'],['Установка щита накладного','шт'],['Установка щита встраиваемого','шт'],['Сборка щита','модуль'],['Автомат, УЗО, дифавтомат','шт'],
- ['Реле углекислого газа','шт','w26'],['УЗДП (защита от дуги)','шт','w27'],['Подключение вентиляции','шт','w28'],['Фотореле','шт','w29']]],
-['Слаботочка',[['Прокладка UTP','м'],['Прокладка коаксиального кабеля для ЦТВ','м'],['Интернет-розетка RJ45 или ТВ-розетка','шт']]],
-['Прочее',[['Выезд или диагностика','шт'],['Поиск неисправности','час']]]];
-const M0=[
-['Кабель',[['Кабель ВВГнг-LS 3×1,5','м'],['Кабель ВВГнг-LS 3×2,5','м'],['Кабель ВВГнг-LS 3×6 (плита)','м'],['Вводной кабель СИП','м']]],
-['Коробки и монтаж',[['Распаечная коробка','шт'],['Подрозетник зелёный','шт'],['Подрозетник жёлтый','шт'],['Гильзы','шт'],['Клеммы Wago','шт']]],
-['Розетки и выключатели',[['Розетки','шт'],['Уличная розетка','шт'],['Выключатель одинарный','шт'],['Выключатель двухклавишный','шт'],['Выключатель проходной','шт'],['Выключатель перекрёстный','шт']]],
-['Рамки',[['Рамка одинарная','шт'],['Рамка двойная','шт'],['Рамка тройная','шт']]],
-['Свет',[['Фасадный светильник','шт'],['Бра','шт'],['Светодиодная лента','м'],['Блок питания для ленты','шт']]],
-['Щиток',[['Щит','шт'],['Автомат вводной','шт'],['Автомат 10 А','шт'],['Автомат 16 А','шт'],['УЗО','шт'],['Дифавтомат','шт'],['Реле напряжения','шт'],['Шина N и PE','шт'],['Гребёнка','шт']]],
-['Заземление',[['Комплект заземления','шт']]],
-['Слаботочка',[['Кабель UTP','м'],['Кабель коаксиальный','м'],['Интернет-розетка RJ45','шт'],['ТВ-розетка','шт'],['Коннектор RJ45','шт'],['F-разъём','шт']]]];
-let S,tab='est',mmode='q',sheetSave=null,sheetDel=null;
+const K='eng_v1',APP_V='2.4';
+const KNOW=3,BOX=[0,1,2,4,7,14,30]; // «знаю» = коробка 3+; интервалы повторения в днях по коробкам
+const EN=window.LESSONS||[],WK=window.WEEKS||[],ND=window.NET||{modules:[],lessons:[],levels:[]};
+const NL=ND.lessons||[];NL.forEach(l=>{l.s='net'});
+// главы СДСМ: те же файлы, что в программе на компьютере (app/sdsm), плюс книжный текст для телефона (app/book)
+const CO=window.COURSE||{parts:[],list:[],ch:{}},BK=window.BOOK||{};
+const SDTOPIC={ch02:'vlan',ch03:'l3',ch04:'l2',ch05:'l3',ch06:'ospf',ch08:'bgp',ch08b:'bgp',ch09:'mcast',ch10:'mpls',ch11:'mpls',ch11b:'mpls',ch12:'l2vpn',ch12b:'l2vpn',ch12c:'l2vpn'};
+// отложенные главы: в списке остаются, но приложение не предлагает их первыми (гл. 1 — управление устройством, на его работе не настраивают)
+const SDLATER=['ch01'];
+const SD=CO.list.filter(x=>CO.ch[x.id]).map(x=>{const c=CO.ch[x.id];return{id:'sd_'+x.id,s:'net',sd:1,cid:x.id,num:x.num,part:x.part,t:x.title,g:'Глава '+x.num,topic:SDTOPIC[x.id]||null,c,book:BK[x.id]||null,later:SDLATER.includes(x.id),
+tasks:(c.quiz||[]).map(z=>({k:Array.isArray(z.a)?'mc':'ch',q:z.q,o:z.o,a:z.a,e:z.e,c:z.code,h:1})),brk:(c.lab&&c.lab.brk)||null,und:c.und||null,cards:c.cards||[],ch:1}});
+const NETALL=SD.concat(NL);
+const ALL=EN.concat(NETALL);
+const subj=s=>s=='net'?SD:EN;
+const subjAll=s=>s=='net'?NETALL:EN;
+let S,tab='en',open={en:null,net:null},T={},TR=new Set(),cs=null,deck='en',tz=null,shownDay='',sheetSave=null,VO=[];
 
-const p2=n=>String(n).padStart(2,'0');
-const today=()=>{const d=new Date();return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())};
-const fmtD=s=>{const a=s.split('-');return new Date(+a[0],a[1]-1,+a[2]).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})};
-const r2=n=>Math.round(n*100)/100;
-const fN=n=>Number(n).toLocaleString('ru-RU',{maximumFractionDigits:2});
-const money=n=>fN(n)+' ₽';
-const inV=n=>n>0?String(n).replace('.',','):'';
-const num=s=>{const v=parseFloat(String(s||'').replace(/\s/g,'').replace(',','.'));return isFinite(v)?v:NaN};
+const p=n=>String(n).padStart(2,'0');
+const dk=d=>d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+const tm=d=>p(d.getHours())+':'+p(d.getMinutes());
+const today=()=>dk(new Date());
+const nowS=()=>today()+' '+tm(new Date());
+const pd=s=>{const a=s.split('-');return new Date(+a[0],a[1]-1,+a[2])};
+const add=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return dk(d)};
+const ago=n=>add(today(),-n);
+const diff=(a,b)=>Math.round((pd(b)-pd(a))/864e5);
+const fmtD=s=>pd(s).toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
+const fmtS=s=>pd(s).toLocaleDateString('ru-RU',{day:'numeric',month:'short'});
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const $=id=>document.getElementById(id);
-const uid=p=>p+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+// ---------- уроки ----------
+const les=id=>ALL.find(l=>l.id==id);
+const isNet=l=>!!l&&l.s=='net';
+const sOf=l=>isNet(l)?'net':'en';
+const lnum=l=>l.sd?'Гл. '+l.num:(isNet(l)?'С':'')+l.w+'.'+l.n;
+// шаги урока — только те, для которых в уроке есть содержимое
+function stepsOf(l){if(l.sd)return ['book','tasks','brk','und'].filter(s=>s=='book'||(l[s]||[]).length);
+return isNet(l)?['theory','lab','tasks','own'].filter(s=>s=='tasks'?(l.tasks||[]).length:l[s]):['rule','text','tasks','own'].filter(s=>s=='tasks'||s=='own'||l[s])}
+const SN=(l,s)=>({rule:'Правило',text:'Текст',theory:'Теория',lab:'Лаба',book:l.book?'Книга':'Теория',brk:'Поломки',und:'Объясни',tasks:l.sd?'Тест':isNet(l)?'Вопросы':'Задания',own:isNet(l)?'Объясни':'Своё',done:'Итог'})[s];
+const partT=id=>(CO.parts.find(x=>x.id==id)||{}).title||'';
+const cl=h=>String(h).replace(/\[\[(.+?)\]\]/g,'<mark>$1</mark>');
+const strip=h=>String(h).replace(/<[^>]+>/g,'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+const txt=(t,s)=>t.h?s:esc(s);
+const pr=id=>S.L[id]||{};
+const P=id=>S.L[id]||(S.L[id]={st:null,ti:0,r:[],own:'',ownD:null,show:false,heard:false,done:null,sc:null,pass:0,lab:[]});
+const curL=s=>subj(s).find(l=>!pr(l.id).done&&!l.later);
+const doneToday=s=>subjAll(s).some(l=>pr(l.id).done==today());
+const okN=q=>(q.r||[]).filter(x=>x>0).length;
+const cur=()=>(tab=='en'||tab=='net')&&open[tab]?les(open[tab]):null;
+const LV=ND.levels||[];
+const lvOf=k=>{const x=LV.find(v=>v.k==k);return x?x.v:null};
+const lvT=k=>{const x=LV.find(v=>v.k==k);return x?x.t:k};
 
 // ---------- данные ----------
-// работы, материалы и расходники общие для всех объектов; у объекта свои количества (q, m, c),
-// отметки «куплено» (b), разовые позиции (xw, xm) и флаг «расходники в смете» (ci)
-function mk(src,pf,price){let i=0;const a=[];src.forEach(([g,it])=>it.forEach(([n,u,id])=>{const x={id:id||pf+(++i),g,n,u};if(price)x.p=0;a.push(x)}));return a}
-function newObj(n){return{id:uid('o'),n:n||'Новый объект',cl:'',nt:'',d:today(),q:{},xw:[],m:{},xm:[],b:{},c:{},ci:true,disc:0}}
-function init(){const o=newObj('Первый объект');return{v:2,works:mk(W0,'w',1),mats:mk(M0,'m',0),cons:[],objs:[o],cur:o.id,theme:'auto'}}
-function fixObj(o){o.q=o.q||{};o.xw=o.xw||[];o.m=o.m||{};o.xm=o.xm||[];o.b=o.b||{};o.c=o.c||{};if(o.ci===undefined)o.ci=true;
-o.disc=o.disc||0;o.cl=o.cl||'';o.nt=o.nt||'';o.d=o.d||today();return o}
-function migrate(o){o.works=o.works||[];o.mats=o.mats||[];o.cons=o.cons||[];
-if((o.v||1)<2)mk(W0,'w',1).filter(x=>V2.includes(x.id)&&!o.works.some(y=>y.id==x.id)).forEach(x=>insertG(o.works,x));
-o.objs=(o.objs||[]).map(fixObj);if(!o.objs.length)o.objs.push(newObj());
-if(!o.objs.some(x=>x.id==o.cur))o.cur=o.objs[0].id;o.theme=o.theme||'auto';o.v=2;return o}
-function load(){try{S=JSON.parse(localStorage.getItem(K))}catch(e){S=null}S=S&&S.v?migrate(S):init()}
+function init(){return{v:1,start:today(),L:{},cards:{},q:[],err:[],act:{},sub:{n:0,ok:0},rate:0.8,voice:'',theme:'auto',bk:null}}
+// новые поля в будущих версиях получают значения по умолчанию, старый прогресс не трогаем
+function migrate(o){const d=init();for(const k in d)if(!(k in o))o[k]=d[k];o.v=1;return o}
+function load(){try{S=JSON.parse(localStorage.getItem(K))}catch(e){S=null}S=S&&S.v?migrate(S):init();
+// если Claude поправил перевод или ответ в уроках, карточка подхватит новый текст
+ALL.forEach(l=>{(l.words||[]).concat(l.terms||[]).forEach(([en,ru])=>{const c=S.cards[en];if(c&&!c.d)c.ru=ru});
+(l.cards||[]).forEach(([q,a],i)=>{const c=S.cards['n:'+l.id+':'+i];if(c){c.q=q;c.a=a;if(l.ch)c.h=1}})})}
 function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){toast('Не удалось сохранить')}}
+const act=()=>{const d=today();return S.act[d]||(S.act[d]={})};
+const inc=k=>{const A=act();A[k]=(A[k]||0)+1};
+const busy=A=>!!A&&Object.keys(A).some(k=>A[k]);
 
-const cur=()=>S.objs.find(o=>o.id==S.cur);
-function groups(a){const m=new Map();a.forEach(x=>{if(!m.has(x.g))m.set(x.g,[]);m.get(x.g).push(x)});return[...m]}
-const works=o=>S.works.concat(o.xw.map(x=>({...x,g:XG,own:1})));
-function mats(o){const a=S.mats.slice();o.xm.forEach(x=>{let i=-1;a.forEach((y,j)=>{if(y.g==x.g)i=j});const it={...x,own:1};if(i<0)a.push(it);else a.splice(i+1,0,it)});return a}
-function insertG(L,x){let j=-1;L.forEach((y,k)=>{if(y.g==x.g)j=k});if(j<0)L.push(x);else L.splice(j+1,0,x)}
-function setQ(o,k,id,v){if(v>0)o[k][id]=r2(v);else{delete o[k][id];if(k=='m')delete o.b[id]}}
-function calc(o){let sum=0,miss=0;const lines=[];
-const add=(x,q)=>{if(!(q>0))return;const p=x.p||0;if(!p)miss++;const s=r2(q*p);sum+=s;lines.push({...x,q,p,s})};
-works(o).forEach(x=>add(x,o.q[x.id]));
-if(o.ci)S.cons.forEach(x=>add({...x,g:CG},o.c[x.id]));
-sum=r2(sum);const disc=Math.min(100,Math.max(0,o.disc||0)),dv=Math.round(sum*disc/100);
-return{lines,sum,disc,dv,tot:r2(sum-dv),miss,cons:lines.some(l=>l.g==CG)}}
-function conSum(o){let s=0,n=0;S.cons.forEach(x=>{const q=o.c[x.id];if(q>0){n++;s+=q*(x.p||0)}});return{s:r2(s),n}}
-const footNote=c=>c.cons?'Цены указаны за работу и расходные материалы, основные материалы не входят.':'Цены указаны за работу, материалы не входят.';
+// ---------- карточки ----------
+const dOf=c=>c.d||'en';
+function addWords(l){
+(l.words||[]).concat(l.terms||[]).forEach(([en,ru])=>{if(!S.cards[en])S.cards[en]={ru,b:0,due:today(),n:0,x:0,l:l.id}});
+(l.cards||[]).forEach(([q,a],i)=>{const k='n:'+l.id+':'+i;if(!S.cards[k]){S.cards[k]={d:'net',q,a,b:0,due:today(),n:0,x:0,l:l.id};if(l.ch)S.cards[k].h=1}})}
+const keysOf=d=>Object.keys(S.cards).filter(k=>dOf(S.cards[k])==d);
+function dueList(d){const t=today();return keysOf(d).filter(k=>S.cards[k].due<=t).sort((a,b)=>{const A=S.cards[a],B=S.cards[b];return (A.n?0:1)-(B.n?0:1)||(A.due<B.due?-1:A.due>B.due?1:0)})}
+function cstats(d){let nw=0,lr=0,kn=0;keysOf(d).forEach(k=>{const c=S.cards[k];if(!c.n)nw++;else if(c.b>=KNOW)kn++;else lr++});return{all:nw+lr+kn,nw,lr,kn}}
+const hardW=d=>keysOf(d).filter(k=>S.cards[k].x).sort((a,b)=>S.cards[b].x-S.cards[a].x).slice(0,8);
+function nextDue(d){let m=null;keysOf(d).forEach(k=>{const x=S.cards[k].due;if(x>today()&&(!m||x<m))m=x});return m}
+const cardFront=k=>{const c=S.cards[k];return c.d?c.q:k};
 
-// ---------- экраны ----------
-function vHead(){const o=cur();
-return `<div class="brand"><div class="logo">${BOLT}</div><button class="obj plain" data-a="objs"><small>Объект</small><b><span>${esc(o.n)}</span>${CHEV}</b></button></div>`+
-`<nav class="tabs">${[['est','Смета'],['mat','Материалы'],['con','Расходники'],['set','Настройки']].map(t=>`<button class="${tab==t[0]?'on':''}" data-a="tab" data-t="${t[0]}">${t[1]}</button>`).join('')}</nav>`}
+// ---------- проверка ответов ----------
+const CONTR=[[/\b(i)'m\b/gi,'$1 am'],[/\b(he|she|it|that|what|there|who)'s\b/gi,'$1 is'],[/\b(you|we|they)'re\b/gi,'$1 are'],[/\b(i|you|we|they)'ve\b/gi,'$1 have'],[/\b(i|you|he|she|it|we|they)'ll\b/gi,'$1 will'],[/\b(c)an't\b/gi,'$1annot'],[/\b(c)an not\b/gi,'$1annot'],[/\b(w)on't\b/gi,'$1ill not'],[/n't\b/gi,' not']];
+// знаки препинания и сокращения (isn't = is not) не влияют на проверку; регистр — только если cs
+function norm(s,cs){s=String(s).replace(/[’‘`ʼ]/g,"'");if(!cs)s=s.toLowerCase();CONTR.forEach(([r,t])=>{s=s.replace(r,t)});return s.replace(/[^A-Za-z0-9А-Яа-яЁё' ]+/g,' ').replace(/\s+/g,' ').trim()}
+const tQ=t=>t.q||t.ru||'';
+const tA=t=>t.k=='ch'?t.o[t.a]:t.k=='mc'?t.a.map(i=>t.o[i]).join('; '):t.k=='or'?t.a:t.a[0];
+function ensureT(l,k,t){const id=l.id+':'+k;if(T.id==id)return;T={id,k};
+if(t.k=='ch'||t.k=='mc')T.o=shuffle(t.o.map((_,i)=>i));if(t.k=='mc')T.sel=[];
+if(t.k=='or'){const m=t.a.match(/^(.*?)([.?!]?)$/);T.w=m[1].split(' ');T.end=m[2];T.pk=[];
+let o;do{o=shuffle(T.w.map((_,i)=>i))}while(T.w.length>1&&o.every((v,i)=>T.w[v]==T.w[i]));T.o=o}}
+function answer(l,q,k,t,y,ok){
+q.r[k]=ok?1:0;q.ti=Math.max(q.ti,k+1);inc(isNet(l)?'nt':'t');
+if(!ok){S.err.push({l:l.id,q:tQ(t),y,a:tA(t),d:today()});if(S.err.length>120)S.err.splice(0,S.err.length-120)}
+if(q.ti>=l.tasks.length&&!q.pass&&!q.sc)q.sc=[okN(q),l.tasks.length,today()];
+T.show=true;T.ok=ok;T.y=y}
+function doCheck(){const l=cur(),q=l&&P(l.id),t=l&&l.tasks[q.ti];if(!t||T.show)return;let y,ok;
+if(t.k=='or'){if(T.pk.length<T.w.length)return;y=T.pk.map(i=>T.w[i]).join(' ')+T.end;ok=y==T.w.join(' ')+T.end}
+else if(t.k=='mc'){if(!T.sel.length)return;y=T.sel.map(i=>t.o[i]).join('; ');ok=T.sel.length==t.a.length&&T.sel.every(i=>t.a.includes(i))}
+else{const el=$('ans');y=el?el.value.trim():'';if(!y){toast('Сначала впиши ответ');return}const cs=t.k=='fx',n=norm(y,cs);ok=t.a.some(a=>norm(a,cs)==n)}
+answer(l,q,q.ti,t,y,ok);save();render()}
 
-function secHead(i,g,it,k){const o=cur(),n=it.filter(x=>o[k][x.id]>0).length;
-return `<div class="sec"><span class="ix">${p2(i+1)}</span><h2>${esc(g)}</h2><span class="badge mono" data-cnt="${it.map(x=>x.id).join(',')}" data-k="${k}">${n||''}</span></div>`}
+// ---------- подсказки при письме: его типичные ошибки ----------
+const VERBS='work|start|finish|check|watch|like|want|go|have|get|live|drink|make|fix|play|read|write|need|know|say|use|help|study|open|call|end|love|eat|sleep|run|walk';
+// слова, которые он писал с ошибкой (по отчётам)
+const SPELL={becouse:'because',bocouse:'because',becuse:'because',becaus:'because',nigth:'night',usualy:'usually',ussualy:'usually',usally:'usually',coffe:'coffee',quet:'quiet',collegs:'colleagues',collegues:'colleagues',wundefrul:'wonderful',wonderfull:'wonderful',nessesery:'necessary',neccesary:'necessary',necesary:'necessary',swith:'switch',swithes:'switches',adress:'address',neigbor:'neighbor',neigbors:'neighbors',metwork:'network',engeneer:'engineer',beatiful:'beautiful',beautifull:'beautiful',dosent:'doesn’t',freind:'friend',wich:'which'};
+const spellOf=s=>[...new Set((s.toLowerCase().match(/[a-z]+/g)||[]).filter(w=>SPELL[w]))];
+const HINTS=[
+[s=>/(^|[\s(“"])i(?=[\s'’,.!?]|$)/.test(s),'Пиши «I» с большой буквы — всегда, даже в середине предложения.'],
+[s=>spellOf(s).length,s=>'Проверь написание: '+spellOf(s).map(w=>w+' → '+SPELL[w]).join(', ')+'.'],
+[s=>/\b(dont|doesnt|isnt|arent|cant|didnt|wont)\b/i.test(s),'Ставь апостроф: don’t, doesn’t, isn’t, can’t.'],
+[s=>/(^|[.!?]\s+)[a-z]/.test(s.replace(/\b([ap])\.m\./gi,'$1m')),'Новое предложение начинается с большой буквы.'],
+[s=>/\b(is|are|am)\s+not\s+(work|start|like|know|understand|have|want|need)\b/i.test(s),'Обычный глагол отрицаем через don’t / doesn’t: it doesn’t work, а не is not work.'],
+[s=>/\b(should|can|must)\s+to\b/i.test(s),'После should / can / must — без to: I should walk.'],
+[s=>/\bhow\s+(find|fix|solve|do|make|check|get|use|learn|write|say)\b/i.test(s),'Как сделать — how to + глагол: how to find.'],
+[s=>/\b(i am|i'm|i’m)\s+(very\s+|so\s+)?boring\b/i.test(s),'«I am boring» — «я скучный». «Мне скучно» — I am bored.'],
+[s=>/\bwanna\b/i.test(s),'В письме лучше want to.'],
+[s=>/\bat\s+(my\s+)?days?\s+off\b/i.test(s),'Дни — с on: on my days off.'],
+[s=>/\bon\s+\d{1,2}(?!\s*(st|nd|rd|th|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec))\b/i.test(s),'Время по часам — at: at 7. Срок — for: for 3 years.'],
+[s=>/\bon\s+(the\s+)?chat\b/i.test(s),'В чате — in the chat.'],
+[s=>/\b(work|live|am|is|are)\s+hear\b/i.test(s),'Здесь — here. hear — слышать.'],
+[s=>/\bits\s+(is|a|an|the|not|work|works)\b/i.test(s)||/\bits\s+(very\s+)?(good|ok|fine|old|new|small|big|bad|cool|great|black|white)\s*([.!?,]|$)/i.test(s),'«its» — это «его / её» (чей). Если хочешь сказать «это / он есть» — пиши «it’s» или «it is».'],
+[s=>/\bquit\b/i.test(s),'«quit» — бросить. «Тихий» пишется «quiet».'],
+[s=>/\b(am|is|are)\s+(network|engineer|teacher|builder|driver|doctor|student|electrician|programmer|manager)\b/i.test(s),'Перед профессией нужен a / an: I am a network engineer.'],
+[s=>/\b(have|has)\s+(laptop|pc|computer|car|dog|cat|desk|job|router|switch|phone|house|flat)\b/i.test(s),'Перед одним предметом нужен a / an или my: I have a laptop.'],
+[s=>s.split(/[.!?]+/).some(x=>!/\b(do|does|did|will|can|can’t|can't|cannot|don’t|don't|doesn’t|doesn't|didn’t|didn't|won’t|won't|to|must|should|let’s|let's)\b/i.test(x)&&new RegExp('\\b(he|she|it)\\s+('+VERBS+')\\b','i').test(x)),'После he / she / it в Present Simple у глагола окончание -s: he works, she has.'],
+[s=>/\b(doesn[’']?t|does not|don[’']?t|do not|does|do)\s+(\w+\s+)?(works|starts|checks|likes|wants|goes|has|gets|lives|drinks|makes|fixes|plays|reads|writes|needs|knows|says|uses|helps|studies|opens|calls|ends|understands)\b/i.test(s),'После do / does / don’t / doesn’t глагол без -s: he doesn’t work, does he work?']];
+const hintsHtml=t=>HINTS.filter(h=>h[0](t||'')).slice(0,6).map(h=>`<div>💡 ${typeof h[1]=='function'?h[1](t):h[1]}</div>`).join('');
+// мягкое напоминание после верного ответа: регистр в переводе не проверяется, но привычку тренируем
+function capNote(y){const n=[];if(/(^|\s)i(\s|'|’|$)/.test(y))n.push('«I» пишется с большой буквы.');else if(/^[a-z]/.test(y))n.push('Предложение начинается с большой буквы.');return n.join(' ')}
 
-function qRow(x,q,k){let sub;
-if(k!='m')sub=`<button class="pr ${x.p>0?'':'no'}" data-a="${k=='c'?'econ':x.own?'exw':'price'}" data-id="${x.id}">${x.p>0?money(x.p)+' / '+esc(x.u):'нет цены · '+esc(x.u)}</button>`;
-else sub=x.own?`<button class="pr" data-a="exm" data-id="${x.id}">свой вариант · ${esc(x.u)}</button>`:`<span class="pr">${esc(x.u)}</span>`;
-return `<div class="row ${q>0?'sel':''}"><div class="rt"><b>${esc(x.n)}</b>${sub}</div><div class="stp">`+
-`<button data-a="dec" data-k="${k}" data-id="${x.id}" aria-label="Меньше">−</button>`+
-`<input inputmode="decimal" enterkeyhint="done" data-k="${k}" data-id="${x.id}" value="${inV(q)}" placeholder="0" aria-label="Количество">`+
-`<button data-a="inc" data-k="${k}" data-id="${x.id}" aria-label="Больше">+</button></div></div>`}
+// ---------- озвучка ----------
+// лучшие голоса первыми: Premium, затем улучшенные и нейросетевые; игрушечные голоса iPhone скрываем
+const vq=v=>{const s=v.voiceURI+' '+v.name;return /premium/i.test(s)?0:/enhanced|улучш|natural|neural/i.test(s)?1:/google/i.test(s)?2:3};
+function loadVoices(){if('speechSynthesis' in window)VO=speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang)&&!/eloquence|speech\.synthesis\.voice/i.test(v.voiceURI))
+.sort((a,b)=>vq(a)-vq(b)||(/en[-_]US/i.test(b.lang)-/en[-_]US/i.test(a.lang)))}
+// «Голос из настроек iPhone» — голос не задаём, только язык: iPhone берёт английский голос, выбранный в его Настройках.
+// Скачанные голоса высокого качества Safari в список не отдаёт, а так они работают.
+function pickVoice(){return S.voice&&VO.find(v=>v.voiceURI==S.voice)||null}
+const noEnVoice=()=>{if(!('speechSynthesis' in window))return true;if(!VO.length)loadVoices();return !VO.length&&speechSynthesis.getVoices().length>0};
+function say(list,onIdx){
+if(!('speechSynthesis' in window)){toast('Озвучка здесь недоступна');return}
+const ss=speechSynthesis,v=pickVoice();
+// без английского голоса браузер читает русским — для произношения это вредно, лучше промолчать
+if(noEnVoice()){toast('На этом устройстве нет английского голоса');return}
+if(ss.speaking||ss.pending)ss.cancel();
+list.forEach((t,i)=>{const u=new SpeechSynthesisUtterance(t);u.lang=v?v.lang:'en-US';if(v)u.voice=v;u.rate=S.rate;
+if(onIdx){u.onstart=()=>onIdx(i);if(i==list.length-1)u.onend=()=>onIdx(-1)}ss.speak(u)})}
+function hush(){if('speechSynthesis' in window)speechSynthesis.cancel()}
+const hl=i=>document.querySelectorAll('[data-sn]').forEach(el=>el.classList.toggle('pl',+el.dataset.sn===i));
 
-function vEst(){const o=cur();let h='';
-if(!S.works.some(x=>x.p>0))h+=`<button class="note" data-a="tab" data-t="set">⚡ Сначала проставь цены: «Настройки» → «Цены на работы». Без цен смета посчитается в ноль.</button>`;
-if(o.cl||o.nt)h+=`<button class="meta" data-a="eobj" data-id="${o.id}">${o.cl?'<b>'+esc(o.cl)+'</b>'+(o.nt?'\n':''):''}${esc(o.nt)}</button>`;
-groups(works(o)).forEach(([g,it],i)=>{h+=secHead(i,g,it,'q')+'<div class="box">'+it.map(x=>qRow(x,o.q[x.id],'q')).join('')+'</div>'});
-return h+`<button class="btn" data-a="exw" data-id="" style="margin-top:18px">＋ Разовая работа</button><p class="hint">Разовая работа есть только в этом объекте и в прайс не попадает.</p>`}
+// ---------- элементы ----------
+function ring(v,sz,sw,col,trk,fs){const r=(sz-sw)/2,c=2*Math.PI*r,o=sz/2;
+return `<div class="ring" style="width:${sz}px;height:${sz}px"><svg width="${sz}" height="${sz}"><circle cx="${o}" cy="${o}" r="${r}" fill="none" style="stroke:${trk}" stroke-width="${sw}"/>`+
+(v>0?`<circle cx="${o}" cy="${o}" r="${r}" fill="none" style="stroke:${col}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c*(1-v/100)}"/>`:'')+
+`</svg><span style="font-size:${fs}px">${v}%</span></div>`}
+const wring=v=>ring(v,86,9,'#fff','rgba(255,255,255,.25)',20);
+const head=(sub,t)=>`<div class="top"><small>${sub}</small><h1>${t}</h1></div>`;
+const dateLine=()=>new Date().toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
+const sayB=t=>`<button class="say" data-a="say" data-t="${esc(t)}" aria-label="Слушать">🔊</button>`;
+const row=(en,ru)=>`<div class="sn"><div class="en">${esc(en)}<span class="tr">${esc(ru)}</span></div>${sayB(en)}</div>`;
+const code=t=>`<pre>${esc(t)}</pre><button class="cp" data-a="copy" data-t="${esc(t)}">Копировать</button>`;
+const mrow=(d,txt,a)=>`<button class="st ${d?'d':''}" ${a}><b>${d?'✓':''}</b><span>${txt}</span></button>`;
+function bkNote(){const t=today(),bd=S.bk?diff(S.bk,t):null;
+return (bd===null&&diff(S.start,t)>=3)||bd>=7?`<button class="note am" data-a="tab" data-t="more">💾 ${bd===null?'Резервная копия ещё не делалась.':'Копия не делалась '+bd+' дн.'} Нажми, чтобы сделать.</button>`:''}
+// один новый урок в день: горячий старт ведёт к выгоранию, поэтому второй урок — только по явному желанию
+function startBtn(s,c){if(!c)return '';const what=c.sd?'главу '+c.num:'урок '+lnum(c);
+if(doneToday(s)&&!pr(c.id).st)return `<div class="card"><b>${c.sd?'Сегодня глава пройдена ✓':'Сегодняшний урок пройден ✓'}</b><p class="mu" style="margin:6px 0 12px">Следующий шаг лучше завтра: за ночь материал укладывается${s=='en'?', а карточки как раз повторят новые слова':''}. Сегодня можно повторить карточки${s=='net'?' или потренировать подсети':''}.</p><button class="btn g" data-a="open" data-l="${c.id}" style="margin:0">Всё равно начать ${what}</button></div>`;
+return `<button class="btn" data-a="open" data-l="${c.id}">▶ ${pr(c.id).st?'Продолжить':'Начать'} ${what}</button>`}
+function lessonRow(l){const q=pr(l.id),sc=q.sc;
+if(l.sd){const sub=(l.later?'отложена, вернёмся позже · ':'')+(l.book?(l.book.draft?'книга: пробный раздел':'книга'):'конспект')+' · тест '+l.tasks.length+(sc?' · '+pct(sc[0],sc[1])+'%':q.st&&!q.done?' · начата':'');
+return `<button class="li lr" data-a="open" data-l="${l.id}"><div class="ico ${q.done?'dn':''}">${q.done?'✓':esc(l.num)}</div><div class="ht"><b>${lnum(l)} · ${esc(l.t)}</b><small>${sub}</small></div><span class="mu">›</span></button>`}
+let sub=esc(l.g)+(sc?' · '+pct(sc[0],sc[1])+'%':q.st&&!q.done?' · начат':'');
+if(l.lab&&(q.lab||[]).length)sub+=` · лаба ${q.lab.length}/${l.lab.steps.length}`;
+return `<button class="li lr" data-a="open" data-l="${l.id}"><div class="ico ${q.done?'dn':''}">${q.done?'✓':l.review?'↻':l.n}</div><div class="ht"><b>${lnum(l)} · ${esc(l.t)}</b><small>${sub}</small></div><span class="mu">›</span></button>`}
 
-function vMat(){const o=cur(),L=mats(o),need=L.filter(x=>o.m[x.id]>0),G=groups(L),gi=new Map(G.map((g,i)=>[g[0],i]));
-let h=`<div class="seg"><button class="${mmode=='q'?'on':''}" data-a="mmode" data-v="q">Количество</button><button class="${mmode=='buy'?'on':''}" data-a="mmode" data-v="buy">К покупке<span id="needc">${need.length?' · '+need.length:''}</span></button></div>`;
-if(mmode=='q'){h+=`<p class="hint">Сколько чего понадобится на этот объект. Это список для закупки, в смету он не идёт.</p>`;
-G.forEach(([g,it],i)=>{h+=secHead(i,g,it,'m')+'<div class="box">'+it.map(x=>qRow(x,o.m[x.id],'m')).join('')+`<button class="add" data-a="xm" data-g="${esc(g)}">＋ Свой вариант</button></div>`});
+// ---------- экран «Английский» ----------
+function vEn(){
+const t=today(),c=curL('en'),due=dueList('en').length,C=cstats('en'),A=S.act[t]||{};
+const w=c?c.w:(EN.length?EN[EN.length-1].w:1),wl=EN.filter(l=>l.w==w),W=WK.find(x=>x.w==w)||{t:''};
+let h=head(dateLine(),'Английский');
+h+=`<div class="hero">${wring(pct(wl.filter(l=>pr(l.id).done).length,wl.length))}<div class="info"><b>Неделя ${w} · ${esc(W.t)}</b><p>${c?'Урок '+c.n+' из '+wl.length+' · '+esc(c.g):'Все уроки недели пройдены'}</p><span class="chip">Карточек на сегодня: ${due}</span></div></div>`;
+if(!c&&EN.length)h+=`<button class="note in" data-a="tab" data-t="stats">🏁 Уроки недели ${w} пройдены. Составь отчёт во вкладке «Прогресс» и пройди проверку с Claude. Новые уроки появятся после неё.</button>`;
+h+=bkNote()+startBtn('en',c);
+const xl=c&&c.text?c:[...EN].reverse().find(l=>l.text&&pr(l.id).st)||EN.find(l=>l.text),ol=c||xl;
+h+='<h2>Минимум на сегодня · 15 минут</h2><div class="card">'+
+mrow(C.all&&!due,due?`Повторить карточки: ${due}`:C.all?'Карточки на сегодня повторены':'Карточки появятся, когда откроешь текст урока','data-a="deck" data-d="en"')+
+(xl?mrow(A.h,`Послушать текст урока ${lnum(xl)}`,`data-a="open" data-l="${xl.id}" data-s="text"`):'')+
+(ol?mrow(A.o,'Написать 2 своих предложения',`data-a="open" data-l="${ol.id}" data-s="own"`):'')+
+'<div class="hint">Есть силы — пройди урок целиком. Это норма, около 45 минут.</div></div>';
+WK.forEach(W=>{const ls=EN.filter(l=>l.w==W.w);h+=`<h2>Неделя ${W.w} · ${esc(W.t)}</h2>`;
+h+=ls.length?'<div class="card">'+ls.map(lessonRow).join('')+'</div>':`<div class="card mu">${esc(W.g)}. Уроки появятся после проверки с Claude.</div>`});
+return h+'<div class="mu" style="padding:4px 4px 0">💡 Застрял: 5 минут разбираешься, потом жмёшь «❓ Непонятно» и идёшь дальше. Телефон с лентой — в другой комнате.</div>'}
+
+// ---------- экран «Сети» ----------
+function vNet(){
+if(tz)return vTrainer();
+const t=today(),c=curL('net'),due=dueList('net').length,CN=cstats('net'),A=S.act[t]||{},lv=c?lvOf(c.topic):null;
+let h=head(dateLine(),'Сети · СДСМ');
+h+=`<div class="hero nt">${wring(pct(SD.filter(l=>pr(l.id).done).length,SD.length))}<div class="info"><b>${c?'Глава '+c.num+' · '+esc(c.t):'Все доступные главы пройдены'}</b><p>${c?esc(partT(c.part))+(c.book?' · есть книжный текст':' · пока конспект'):'Новые главы появятся после проверки с Claude'}</p>${c&&c.topic?`<span class="chip">${esc(lvT(c.topic))}: ${lv==null?'не оценено':lv+'/10'}</span>`:''}</div></div>`;
+h+=bkNote()+startBtn('net',c);
+const xl=c||[...SD].reverse().find(l=>pr(l.id).st)||SD[0];
+h+='<h2>Минимум на сегодня · 15 минут</h2><div class="card">'+
+mrow(CN.all&&!due,due?`Карточки по сетям: ${due}`:CN.all?'Карточки по сетям повторены':'Карточки появятся, когда откроешь главу','data-a="deck" data-d="net"')+
+mrow((A.s||0)>=5,`Тренажёр подсетей: ${Math.min(A.s||0,5)} из 5 задач`,'data-a="tz"')+
+(xl?mrow(A.th,`Почитать главу ${xl.num}: один раздел`,`data-a="open" data-l="${xl.id}" data-s="book"`):'')+
+'<div class="hint">Норма (около 45 минут) — раздел-два книги и тест. Лабу главы делай на компьютере в СДСМ.</div></div>';
+h+=`<h2>Тренажёр</h2><div class="card"><button class="li lr" data-a="tz"><div class="ico">/24</div><div class="ht"><b>Подсети IPv4</b><small>Решено ${S.sub.n}, верно ${pct(S.sub.ok,S.sub.n)}% · бесконечные задачи на сеть, broadcast, маски</small></div><span class="mu">›</span></button></div>`;
+CO.parts.forEach(P0=>{const L=CO.list.filter(x=>x.part==P0.id);if(!L.length)return;h+=`<h2>${esc(P0.title)}</h2><div class="card">`+L.map(x=>{const l=SD.find(z=>z.cid==x.id);return l?lessonRow(l):`<div class="li off"><div class="ico">${esc(x.num)}</div><div class="ht"><b>Гл. ${esc(x.num)} · ${esc(x.title)}</b><small>появится на телефоне позже</small></div></div>`}).join('')+'</div>'});
+if(NL.length)h+='<h2>Дополнительно · диагностика L2</h2><div class="card mu" style="margin-bottom:8px">Уроки, которые были здесь до перехода на главы СДСМ. Дополняют главы 2 и 4, проходить по желанию.</div><div class="card">'+NL.map(lessonRow).join('')+'</div>';
+return h+'<div class="mu" style="padding:4px 4px 0">💡 Застрял: 5 минут разбираешься, потом «❓ Непонятно» — записал и пошёл дальше. Claude разберёт по отчёту.</div>'}
+
+// ---------- тренажёр подсетей ----------
+const i2s=n=>[n>>>24,(n>>>16)&255,(n>>>8)&255,n&255].join('.');
+const s2i=s=>{const m=String(s).trim().replace(/,/g,'.').match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);if(!m)return null;const a=m.slice(1).map(Number);if(a.some(x=>x>255))return null;return ((a[0]<<24)>>>0)+(a[1]<<16)+(a[2]<<8)+a[3]};
+const mk=p=>p?(0xFFFFFFFF<<(32-p))>>>0:0;
+const netOf=(ip,p)=>(ip&mk(p))>>>0;
+const bcOf=(ip,p)=>(netOf(ip,p)|(~mk(p)>>>0))>>>0;
+function rndIp(){const r=Math.random(),a=r<.4?[10,ri(0,255),ri(0,255),ri(0,255)]:r<.65?[172,ri(16,31),ri(0,255),ri(0,255)]:r<.9?[192,168,ri(0,255),ri(0,255)]:[ri(1,223),ri(0,255),ri(0,255),ri(0,255)];if(a[0]==127)a[0]=128;return ((a[0]<<24)>>>0)+(a[1]<<16)+(a[2]<<8)+a[3]}
+const rndP=()=>{const r=Math.random();return r<.55?ri(24,30):r<.85?ri(16,23):ri(8,15)};
+function gen(m){
+if(m=='mask'){const p=ri(8,30);return{k:['m2','p2','w2'][ri(0,2)],p}}
+if(m=='same'){const p=ri(20,29),sz=2**(32-p),n1=netOf(rndIp(),p),same=Math.random()<.5;let n2=n1;if(!same)n2=n1+sz+sz>2**32?n1-sz:n1+sz;return{k:'same',p,same,ip1:n1+ri(1,sz-2),ip2:n2+ri(1,sz-2)}}
+const p=rndP(),sz=2**(32-p);return{k:'net',p,ip:netOf(rndIp(),p)+ri(1,sz-2)}}
+const OCT=['первый октет','первые два октета','первые три октета'];
+function explainNet(ip,p){const m=mk(p),mo=i2s(m).split('.').map(Number),io=i2s(ip).split('.').map(Number),net=netOf(ip,p),bc=bcOf(ip,p),hosts=2**(32-p)-2;
+if(p%8==0)return `Маска /${p} = ${i2s(m)} — граница по октетам. Сеть: ${OCT[p/8-1]} адреса, остальное 0 → ${i2s(net)}. Broadcast: остальное 255 → ${i2s(bc)}. Хостов: 2^${32-p} − 2 = ${hosts}.`;
+const k=Math.floor(p/8),blk=256-mo[k],lo=Math.floor(io[k]/blk)*blk;
+return `Маска /${p} = ${i2s(m)}. Интересный октет — ${k+1}-й (в маске там ${mo[k]}). Шаг: 256 − ${mo[k]} = ${blk}. ${k+1}-й октет адреса — ${io[k]}, он попадает в блок ${lo}–${lo+blk-1}. Значит, сеть ${i2s(net)}, broadcast ${i2s(bc)}. Хостов: 2^${32-p} − 2 = ${hosts}.`}
+function explainMask(p){const f=Math.floor(p/8),r=p%8,pv=r?256-2**(8-r):0;
+return `/${p} = ${p} единиц слева: ${f} × 255${r?` и ещё ${r} ${r==1?'единица':r<5?'единицы':'единиц'} в следующем октете (${pv})`:''}, остальное 0 → ${i2s(mk(p))}. Wildcard = 255.255.255.255 − маска = ${i2s((~mk(p))>>>0)}. Шпаргалка: 128=1, 192=2, 224=3, 240=4, 248=5, 252=6, 254=7 единиц.`}
+const tin=(id,mode,v,cls,dis)=>`<input class="in ${cls}" id="${id}" inputmode="${mode}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="${esc(v)}" ${dis?'disabled':''}>`;
+function vTrainer(){
+const A=S.act[today()]||{},p=tz.p,R=tz.res;
+let h=`<div class="lh"><button class="back" data-a="tzx">‹ Сети</button><span class="mu">Сегодня ${A.s||0} · всего верно ${pct(S.sub.ok,S.sub.n)}%</span></div><div class="top"><small>Тренажёр</small><h1 class="h1s">Подсети IPv4</h1></div>`;
+h+=`<div class="seg">${[['net','Подсеть'],['mask','Маска'],['same','Одна сеть?']].map(o=>`<button class="${tz.m==o[0]?'on':''}" data-a="tzm" data-v="${o[0]}">${o[1]}</button>`).join('')}</div>`;
+if(p.k=='net'){const net=netOf(p.ip,p.p),bc=bcOf(p.ip,p.p),F=[['net','Сеть',i2s(net),'decimal'],['bc','Broadcast',i2s(bc),'decimal'],['first','Первый хост',i2s(net+1),'decimal'],['last','Последний хост',i2s(bc-1),'decimal'],['hosts','Хостов',String(2**(32-p.p)-2),'numeric']];
+h+=`<div class="card"><div class="mu">Найди для адреса</div><div class="big">${i2s(p.ip)}/${p.p}</div><div class="tf">${F.map(f=>`<label for="tz_${f[0]}">${f[1]}</label><div>${tin('tz_'+f[0],f[3],R?R['v_'+f[0]]||'':'',R?(R[f[0]]?'okb':'nob'):'',!!R)}${R&&!R[f[0]]?`<div class="cv">Верно: ${f[2]}</div>`:''}</div>`).join('')}</div></div>`;
+if(R)h+=`<div class="fb ${R.all?'ok':'no'}">${R.all?'✓ Всё верно':'Есть ошибки'}<div class="fe">${explainNet(p.ip,p.p)}</div></div>`}
+else if(p.k=='same'){h+=`<div class="card"><div class="mu">Маска /${p.p}. Эти два адреса — в одной подсети?</div><div class="big">${i2s(p.ip1)}<br>${i2s(p.ip2)}</div>${R?'':'<div class="sb"><button class="btn" data-a="tzs" data-v="1">Да</button><button class="btn" data-a="tzs" data-v="0">Нет</button></div>'}</div>`;
+if(R)h+=`<div class="fb ${R.all?'ok':'no'}">${R.all?'✓ Верно':'✗ Неверно'}: ${p.same?'одна подсеть':'разные подсети'}<div class="fe">Сеть первого: ${i2s(netOf(p.ip1,p.p))}/${p.p}, сеть второго: ${i2s(netOf(p.ip2,p.p))}/${p.p}. ${explainNet(p.ip1,p.p)}</div></div>`}
+else{const Q={m2:[`Какая маска у префикса /${p.p}?`,i2s(mk(p.p)),'decimal'],p2:[`Какой префикс у маски ${i2s(mk(p.p))}?`,'/'+p.p,'numeric'],w2:[`Какая wildcard-маска у /${p.p}?`,i2s((~mk(p.p))>>>0),'decimal']}[p.k];
+h+=`<div class="card"><div class="q">${Q[0]}</div>${tin('tz_a',Q[2],R?R.v:'',R?(R.all?'okb':'nob'):'',!!R)}${R&&!R.all?`<div class="cv">Верно: ${Q[1]}</div>`:''}</div>`;
+if(R)h+=`<div class="fb ${R.all?'ok':'no'}">${R.all?'✓ Верно':'✗ Неверно'}<div class="fe">${explainMask(p.p)}</div></div>`}
+h+=R?'<button class="btn" data-a="tzn">Следующая задача →</button>':(p.k=='same'?'':'<button class="btn" data-a="tzc">Проверить</button>');
+return h+'<div class="hint">Способ: найди «интересный» октет маски (не 255 и не 0). Шаг = 256 − этот октет. Сеть — ближайшее кратное шагу снизу, broadcast — следующая сеть минус 1. Хостов = 2^(32 − префикс) − 2.</div>'}
+function tzDone(all){S.sub.n++;if(all)S.sub.ok++;inc('s');if(all)inc('so');save();render()}
+function tzCheck(){const p=tz.p,R={};
+if(p.k=='net'){const net=netOf(p.ip,p.p),bc=bcOf(p.ip,p.p),want={net,bc,first:net+1,last:bc-1};
+const F=['net','bc','first','last','hosts'];if(F.every(f=>!$('tz_'+f).value.trim())){toast('Заполни поля');return}
+['net','bc','first','last'].forEach(f=>{const v=$('tz_'+f).value;R['v_'+f]=v;R[f]=s2i(v)===want[f]});
+const hv=$('tz_hosts').value;R.v_hosts=hv;R.hosts=parseInt(hv.replace(/\s/g,''),10)===2**(32-p.p)-2;R.all=F.every(f=>R[f])}
+else{const v=$('tz_a').value;if(!v.trim()){toast('Впиши ответ');return}R.v=v;
+R.all=p.k=='p2'?parseInt(v.replace(/[\/\s]/g,''),10)===p.p:s2i(v)===(p.k=='m2'?mk(p.p):(~mk(p.p))>>>0)}
+tz.res=R;tzDone(R.all)}
+
+// ---------- урок ----------
+function nextBtn(l,s){const ss=stepsOf(l),i=ss.indexOf(s);return i>=0&&i<ss.length-1?`<button class="btn" data-a="step" data-s="${ss[i+1]}">Дальше: ${SN(l,ss[i+1]).toLowerCase()} →</button>`:''}
+function sRule(l){return `<div class="card rule">${l.rule}</div><h2>Примеры</h2><div class="card">${l.ex.map(e=>row(e[0],e[1])).join('')}</div>`+nextBtn(l,'rule')}
+
+function sText(l,q){
+let h=`<div class="card"><div style="font-weight:700">🎧 ${q.show?'Слушай и читай. Нажми на предложение, чтобы увидеть перевод.':'Сначала послушай, не подглядывая. Потом открой текст.'}</div><div class="hint">Незнакомые слова — внизу страницы.</div><div class="sb"><button class="btn" data-a="play">▶ Слушать</button><button class="btn g" data-a="stop">⏹ Стоп</button></div></div>`;
+h+=`<div class="card${q.show?'':' blur'}">${l.text.map((s,i)=>`<div class="sn" data-sn="${i}"><button class="en plain" data-a="trn" data-i="${i}">${esc(s[0])}${TR.has(i)?`<span class="tr">${esc(s[1])}</span>`:''}</button>${sayB(s[0])}</div>`).join('')}</div>`;
+h+=q.show?nextBtn(l,'text'):'<button class="btn" data-a="show">Показать текст</button>';
+h+=(l.words||[]).length?`<h2>Новые слова · уже в карточках</h2><div class="card">${l.words.map(w=>row(w[0],w[1])).join('')}</div>`:'';
+// дополнительное чтение по желанию: индексы с 1000, чтобы подсветка и перевод не путались с основным текстом
+if(l.more)h+=`<h2>Ещё почитать · по желанию</h2><div class="card"><div class="mu">Без заданий — просто читай и слушай. Нажми на предложение — появится перевод.</div><div class="sb" style="margin:10px 0 12px"><button class="btn g" data-a="playm">▶ Слушать</button><button class="btn g" data-a="stop">⏹ Стоп</button></div>${l.more.map((s,i)=>`<div class="sn" data-sn="${1000+i}"><button class="en plain" data-a="trn" data-i="${1000+i}">${esc(s[0])}${TR.has(1000+i)?`<span class="tr">${esc(s[1])}</span>`:''}</button>${sayB(s[0])}</div>`).join('')}</div>`;
 return h}
-if(!need.length)return h+`<div class="empty"><b>Список пуст</b>Укажи количество во вкладке «Количество», и здесь появится, что купить.</div>`;
-const done=need.filter(x=>o.b[x.id]).length;
-h+=`<div class="prog"><div><b class="mono">${done} / ${need.length}</b><small>куплено</small></div><div class="pb"><i style="width:${Math.round(done/need.length*100)}%"></i></div></div>`;
-groups(need).forEach(([g,it])=>{h+=`<div class="sec"><span class="ix">${p2(gi.get(g)+1)}</span><h2>${esc(g)}</h2></div><div class="box">`+
-it.map(x=>`<button class="row chk ${o.b[x.id]?'done':''}" data-a="buy" data-id="${x.id}"><span class="cb">${o.b[x.id]?'✓':''}</span><span class="rt"><b>${esc(x.n)}</b></span><span class="qt mono">${fN(o.m[x.id])} ${esc(x.u)}</span></button>`).join('')+'</div>'});
-h+=`<div class="two"><button class="btn y" data-a="mshare">Отправить список</button><button class="btn" data-a="mcopy">Скопировать</button></div>`;
-if(done)h+=`<button class="btn" data-a="mreset">Снять отметки «куплено»</button>`;
+
+function sTheory(l){
+const lv=lvOf(l.topic),weak=lv==null||lv<=5;
+let h=`<div class="note ${weak?'am':'in'}">${lv==null?'Тема ещё не оценивалась':'Твой уровень по теме «'+esc(lvT(l.topic))+'»: '+lv+'/10'}. ${weak?'Читаем теорию полностью, включая «Подробнее».':'Тема знакомая — блок «Подробнее» можно пробежать глазами.'}</div>`;
+h+=`<div class="card rule">${l.theory}</div>`;
+if(l.deep)h+=`<details class="card dp rule" ${weak?'open':''}><summary>Подробнее</summary>${l.deep}</details>`;
+if(l.cmds)h+=`<h2>Команды</h2><div class="card">${l.cmds.map(c=>`<div class="cmd"><code>${esc(c[0])}</code><div class="mu">${esc(c[1])}</div></div>`).join('')}</div>`;
+if((l.terms||[]).length)h+=`<h2>Термины по-английски · уже в карточках</h2><div class="card">${l.terms.map(w=>row(w[0],w[1])).join('')}</div>`;
+if(l.src)h+=`<h2>Источники</h2><div class="card mu">${l.src.map(s=>'• '+esc(s)).join('<br>')}</div>`;
+return h+nextBtn(l,'theory')}
+
+function sLab(l,q){const L=l.lab,dn=q.lab||[];
+let h=`<div class="card"><b>Цель</b><p style="margin:6px 0 0">${esc(L.goal)}</p></div>`;
+if(L.topo)h+=`<h2>Схема</h2><div class="card rule">${L.topo}</div>`;
+if(L.cfg)h+='<h2>Начальные настройки</h2><div class="card">'+L.cfg.map(c=>`<div class="cmd"><b>${esc(c[0])}</b>${code(c[1])}</div>`).join('')+'</div>';
+h+=`<h2>Шаги · <span id="labc">${dn.length} из ${L.steps.length}</span></h2><div class="card">`+L.steps.map((s,i)=>`<div class="ls ${dn.includes(i)?'d':''}"><button class="ck" data-a="lck" data-i="${i}" aria-label="Шаг выполнен">${dn.includes(i)?'✓':i+1}</button><div class="lt"><div>${s.t}</div>${s.c?code(s.c):''}${s.ok?`<details><summary>Что должно получиться</summary>${s.ok}</details>`:''}</div></div>`).join('')+'</div>';
+if(L.brk)h+='<h2>Сломай и почини · подумай</h2>'+L.brk.map(b=>`<div class="card rule"><div>${b.t}</div>${b.h?`<details style="margin-top:10px"><summary>Подсказка</summary><p style="margin-top:6px">${b.h}</p></details>`:''}<details style="margin-top:10px"><summary>Разбор</summary><p style="margin-top:6px">${b.f}</p></details></div>`).join('');
+return h+'<div class="hint" style="margin:0 4px 12px">Отмечай шаги галочкой — прогресс лабы попадёт в отчёт. Лаба может растянуться на несколько дней, это нормально.</div>'+nextBtn(l,'lab')}
+
+// ---------- главы СДСМ: книга, поломки, «объясни» ----------
+function sBook(l){const B=l.book,c=l.c;let h='';
+if(B&&B.draft)h+='<div class="note am">Пока написан только первый раздел — пробный. Напиши Claude, понятно ли он написан: по твоему ответу будет дописана вся глава.</div>';
+if(l.later)h+='<div class="note in">Эта глава отложена: на твоей работе это не настраивают, вернёмся к ней позже.</div>';
+if(B){h+=`<div class="card rule book">${cl(B.lead)}</div>`;
+h+=`<div class="card"><b>Содержание</b><ol class="toc">${B.parts.map((p,i)=>`<li><button class="plain lk" data-a="goto" data-i="${i}">${p.h}</button></li>`).join('')}</ol></div>`;
+B.parts.forEach((p,i)=>{h+=`<h3 class="bh" id="bp${i}">${i+1}. ${p.h}</h3><div class="card rule book">${cl(p.html)}</div>`});
+if(B.end)h+=`<div class="card rule book">${cl(B.end)}</div>`;
+h+=`<details class="card dp rule"><summary>Конспект главы из СДСМ</summary>${c.theory.map(t=>'<h3>'+t.h+'</h3>'+cl(t.html)).join('')}</details>`}
+else h+=`<div class="note am">Книжный текст этой главы ещё пишется. Пока — конспект из СДСМ.</div><div class="card rule">${c.intro||''}</div>`+c.theory.map(t=>`<h3 class="bh">${t.h}</h3><div class="card rule">${cl(t.html)}</div>`).join('');
+if((c.cmds||[]).length)h+='<h2>Команды главы</h2><div class="card">'+c.cmds.map(x=>x.g?`<div class="cg">${x.g}</div>`:`<div class="cmd"><pre class="cli">${esc(x.c)}</pre><div>${x.d}</div>${x.hw?`<div class="mu">Huawei: <code>${esc(x.hw)}</code></div>`:''}${x.jn?`<div class="mu">Juniper: <code>${esc(x.jn)}</code></div>`:''}</div>`).join('')+'</div>';
+if((c.refs||[]).length)h+='<h2>Источники</h2><div class="card mu">'+c.refs.map(r=>'• '+(r.u?`<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a>`:esc(r.t))+(r.n?' — '+esc(r.n):'')).join('<br>')+'</div>';
+return h+'<div class="hint" style="margin:0 4px 12px">Карточки главы уже добавлены в колоду «Сети».</div>'+nextBtn(l,'book')}
+
+function sBrk(l){
+let h='<div class="card mu">Это поломки из лабы главы. Представь, что видишь такой симптом на работе: подумай, где искать и что проверишь, и только потом открывай подсказку и разбор. Саму лабу делай на компьютере в СДСМ.</div>';
+h+=l.brk.map((b,i)=>`<div class="card rule"><b>${i+1}. ${b.t}</b>${b.h?`<details style="margin-top:10px"><summary>Подсказка</summary><div style="margin-top:6px">${cl(b.h)}</div></details>`:''}<details style="margin-top:10px"><summary>Разбор</summary><div style="margin-top:6px">${cl(b.f)}</div>${b.inj?`<div class="mu" style="margin-top:8px">Что сломали в лабе:</div><pre class="cli">${esc(b.inj)}</pre>`:''}</details></div>`).join('');
+return h+nextBtn(l,'brk')}
+
+function sUnd(l,q){const U=l.und,ans=q.und||{},left=Math.max(0,l.tasks.length-q.ti),filled=U.filter((u,i)=>(ans[i]||'').trim().length>=20).length;
+let h='<div class="card mu">Ответь своими словами, как объяснял бы коллеге. Потом открой эталон и честно сверь по ключевым пунктам. Claude прочитает твои ответы в отчёте и по ним оценит понимание.</div>';
+h+=U.map((u,i)=>`<div class="card"><b>${i+1}. ${u.q}</b><textarea class="in" data-und="${i}" rows="7" style="margin-top:10px" autocorrect="off" placeholder="Своими словами, по-русски…">${esc(ans[i]||'')}</textarea><details style="margin-top:10px"><summary>Эталон и ключевые пункты</summary><div class="rule" style="margin-top:8px">${cl(u.a)}</div>${(u.k||[]).length?'<div class="mu" style="margin-top:6px">В хорошем ответе есть:</div><ul class="kk">'+u.k.map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}</details></div>`).join('');
+h+=`<div class="hint" style="margin:0 4px 12px">Сохраняется само. Ответов: <span id="undc">${filled}</span> из ${U.length}.</div>`;
+if(q.done)h+='<button class="btn" data-a="step" data-s="done">Готово</button>';
+else if(left)h+=`<button class="btn g" data-a="step" data-s="tasks">Осталось вопросов теста: ${left} — перейти к ним</button>`;
+else h+='<button class="btn" data-a="finish">Закончить главу ✓</button>';
 return h}
 
-function vCon(){const o=cur();
-if(!S.cons.length)return `<div class="empty"><b>Расходников пока нет</b>Добавь то, что уходит на объект: хомуты, клипсы, дюбели, изоленту. У каждого своя цена.</div><button class="btn y" data-a="econ" data-id="">＋ Добавить расходник</button>`;
-let h=`<div class="box" style="margin-top:16px"><div class="row"><div class="rt"><b>Добавлять в смету</b><span class="pr">${o.ci?'отдельным разделом «Расходные материалы»':'не добавляются, считаются только для тебя'}</span></div>`+
-`<button class="tg ${o.ci?'on':''}" data-a="ci" role="switch" aria-checked="${o.ci}" aria-label="Добавлять расходники в смету"><i></i></button></div></div>`;
-h+=`<div class="sec"><h2>Расходники</h2><span class="badge mono" data-cnt="${S.cons.map(x=>x.id).join(',')}" data-k="c">${S.cons.filter(x=>o.c[x.id]>0).length||''}</span></div>`+
-'<div class="box">'+S.cons.map(x=>qRow(x,o.c[x.id],'c')).join('')+'</div>';
-return h+`<button class="btn" data-a="econ" data-id="">＋ Добавить расходник</button><p class="hint">Список и цены общие для всех объектов, количество у каждого объекта своё. Нажми на цену, чтобы изменить расходник или удалить его.</p>`}
+function taskBody(t){
+const inp=(ph,v)=>`<input class="in" id="ans" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="${ph}" value="${esc(v||'')}"><button class="btn" data-a="check" style="margin:12px 0 0">Проверить</button>`;
+const pre=t.c?`<pre class="cli">${cl(esc(t.c))}</pre>`:'';
+if(t.k=='ch')return pre+`<div class="q">${txt(t,t.q)}</div>`+T.o.map(i=>{const c=T.show?(i==t.a?'ok':i==T.yi?'no':''):'';return `<button class="opt ${c}" data-a="pick" data-i="${i}" ${T.show?'disabled':''}>${txt(t,t.o[i])}</button>`}).join('');
+if(t.k=='mc')return pre+`<div class="q">${txt(t,t.q)}</div><div class="mu" style="margin:-6px 0 10px">Здесь несколько верных ответов — отметь все.</div>`+T.o.map(i=>{const sel=T.sel.includes(i);const c=T.show?(t.a.includes(i)?'ok':sel?'no':''):sel?'sel':'';return `<button class="opt ${c}" data-a="tog" data-i="${i}" ${T.show?'disabled':''}>${T.show?'':sel?'☑ ':'☐ '}${txt(t,t.o[i])}</button>`}).join('')+(T.show?'':`<button class="btn" data-a="check" style="margin:4px 0 0" ${T.sel.length?'':'disabled'}>Проверить</button>`);
+if(t.k=='in')return pre+`<div class="mu">Впиши пропущенное</div><div class="q">${esc(t.q).replace('___',`<span class="gap">${T.show?esc(T.y):'&nbsp;'}</span>`)}</div>`+(T.show?'':inp(isNet(cur())?'Ответ':'Слово'));
+if(t.k=='tr')return `<div class="mu">Переведи на английский</div><div class="q">${esc(t.ru)}</div>`+(T.show?'':inp('По-английски'));
+if(t.k=='fx')return `<div class="mu">Найди и исправь ошибку. Большие буквы тоже считаются.</div><div class="q">${esc(t.q)}</div>`+(T.show?'':inp('Исправленное предложение',t.q));
+if(t.k=='dc'){const nv=noEnVoice();return nv?`<div class="mu">Голоса нет — переведи на английский</div><div class="q">${esc(t.ru)}</div>`+(T.show?'':inp('По-английски')):
+`<div class="mu">Диктант: послушай и напиши, что услышал</div><button class="btn g" data-a="sayT" style="margin:8px 0 10px">▶ Послушать${T.show?'':' ещё раз'}</button>`+(T.hint||T.show?`<div class="mu" style="margin:0 0 10px">Перевод: ${esc(t.ru)}</div>`:'<button class="plain mu" data-a="dch" style="margin:0 0 10px;text-decoration:underline">Не разобрать — показать перевод</button>')+(T.show?'':inp('Что услышал'))}
+return `<div class="mu">Собери предложение</div><div class="q">${esc(t.ru)}</div><div class="ans">${T.pk.map((i,j)=>`<button class="tok" data-a="unpk" data-j="${j}">${esc(T.w[i])}</button>`).join('')}${T.pk.length==T.w.length?`<span class="end">${esc(T.end)}</span>`:''}</div><div>${T.o.filter(i=>!T.pk.includes(i)).map(i=>`<button class="tok" data-a="pk" data-i="${i}">${esc(T.w[i])}</button>`).join('')}</div>`+
+(T.show?'':`<div class="sb"><button class="btn g" data-a="rst">Сбросить</button><button class="btn" data-a="check" ${T.pk.length<T.w.length?'disabled':''}>Проверить</button></div>`)}
 
-function vSet(){
-let h=`<div class="big">Цены на работы</div><p class="hint">Цена за единицу работы. Меняй когда нужно: смета всегда считается по текущим ценам. Нажми на название, чтобы переименовать, сменить раздел или удалить.</p>`;
-groups(S.works).forEach(([g,it])=>{h+=`<div class="sub-h">${esc(g)}</div><div class="box">`+it.map(x=>`<div class="row"><button class="rt plain" data-a="ew" data-id="${x.id}"><b>${esc(x.n)} <span class="ed">✎</span></b></button>`+
-`<label class="pf"><input class="mono" inputmode="decimal" enterkeyhint="done" data-price="${x.id}" value="${inV(x.p)}" placeholder="0" aria-label="Цена"><span>₽/${esc(x.u)}</span></label></div>`).join('')+'</div>'});
-h+=`<button class="btn" data-a="ew" data-id="">＋ Добавить работу</button>`;
-h+=`<div class="big">Материалы</div><p class="hint">Список для вкладки «Материалы». Нажми на позицию, чтобы её изменить или удалить.</p>`;
-groups(S.mats).forEach(([g,it])=>{h+=`<div class="sub-h">${esc(g)}</div><div class="box">`+it.map(x=>`<button class="row chk" data-a="em" data-id="${x.id}"><span class="rt"><b>${esc(x.n)}</b></span><span class="pr">${esc(x.u)} ✎</span></button>`).join('')+'</div>'});
-h+=`<button class="btn" data-a="em" data-id="">＋ Добавить материал</button>`;
-h+=`<div class="big">Резервная копия</div><p class="hint">Всё хранится только в этом телефоне. Раз в неделю делай копию и сохраняй её в Заметки.</p>`+
-`<div class="two"><button class="btn" data-a="exp">Сделать копию</button><button class="btn" data-a="imp">Загрузить</button></div>`+
-`<textarea class="in mono" id="io" rows="4" style="margin-top:10px" placeholder="Здесь появится копия. Чтобы восстановить данные, вставь сюда текст копии и нажми «Загрузить»."></textarea>`;
-h+=`<div class="big">Оформление</div><div class="seg">${[['auto','Как в системе'],['light','Светлая'],['dark','Тёмная']].map(t=>`<button class="${S.theme==t[0]?'on':''}" data-a="theme" data-v="${t[0]}">${t[1]}</button>`).join('')}</div>`;
+function feedback(t,l){const right=tA(t),typed=['tr','fx','dc'].includes(t.k);let h=`<div class="fb ${T.ok?'ok':'no'}">`;
+if(t.h){h+=T.ok?'✓ Верно':`✗ Правильно: ${right}`;if(t.e)h+=`<div class="fe">${t.e}</div>`;return h+'</div>'}
+if(T.self)h+=`✓ Засчитано<div class="fe">Вариант из урока: ${esc(right)}</div>`;
+else if(T.ok){h+='✓ Верно';if(t.k=='dc')h+=`<div class="fe">${esc(right)}</div>`;else if(t.k=='tr'&&norm(T.y)!=norm(right))h+=`<div class="fe">Ещё вариант: ${esc(right)}</div>`;
+const cn=!isNet(l)&&(t.k=='tr'||t.k=='dc')?capNote(T.y):'';if(cn)h+=`<div class="fe">Засчитано, но: ${cn}</div>`}
+else h+=`✗ Правильно: ${esc(right)}`+(typed?`<div class="fe">Твой ответ: ${esc(T.y)}</div>`:'');
+if(t.e)h+=`<div class="fe">${esc(t.e)}</div>`;
+h+='</div>';
+if(!T.ok&&t.k=='tr')h+='<button class="btn g" data-a="self">У меня тоже верно — засчитать</button>';
 return h}
 
-function bar(){const el=$('bar'),o=cur();
-if(tab=='con'&&S.cons.length){const t=conSum(o);
-el.innerHTML=`<div class="dock sum"><div class="dk"><small>Расходники на объект</small><b class="mono">${money(t.s)}</b></div><span class="dkc ${o.ci?'on':''}">${o.ci?'в смете':'не в смете'}</span></div>`;return}
-if(tab!='est'){el.innerHTML='';return}
-const n=calc(o).lines.length;
-el.innerHTML=`<div class="dock"><div class="dk"><small>Позиций</small><b class="mono">${n}</b></div><button class="go" data-a="calc" ${n?'':'disabled'}>${BOLT}Рассчитать смету</button></div>`}
+function sTasks(l,q){const n=l.tasks.length;
+if(!T.show&&q.ti>=n){const ok=okN(q);
+return `<div class="card"><div class="gh">${ring(pct(ok,n),64,7,'var(--ac)','var(--soft)',15)}<div class="t">${l.sd?'Тест пройден':SN(l,'tasks')+' пройдены'}<div class="mu">Верно ${ok} из ${n}${q.pass&&q.sc?` · в первый раз ${q.sc[0]} из ${q.sc[1]}`:''}</div></div></div></div>`+
+(q.done?'':l.sd?nextBtn(l,'tasks'):`<button class="btn" data-a="step" data-s="own">Дальше: ${SN(l,'own').toLowerCase()} →</button>`)+`<button class="btn g" data-a="redo">Пройти ${SN(l,'tasks').toLowerCase()} ещё раз</button>`}
+const k=T.show?T.k:q.ti,t=l.tasks[k];ensureT(l,k,t);
+let h=`<div class="mu" style="margin:0 4px 8px">${isNet(l)?'Вопрос':'Задание'} ${k+1} из ${n}</div><div class="bar"><i style="width:${pct(q.ti,n)}%"></i></div><div class="card">${taskBody(t)}</div>`;
+if(T.show)h+=feedback(t,l)+`<button class="btn" data-a="next">${k+1<n?'Дальше →':'Готово →'}</button>`;
+return h}
 
-// обновляем счётчики без перерисовки, чтобы не сбивать ввод
-function counts(){const o=cur();
-document.querySelectorAll('[data-cnt]').forEach(el=>{const k=el.dataset.k,n=el.dataset.cnt.split(',').filter(id=>o[k][id]>0).length;el.textContent=n||''});
-const nb=$('needc');if(nb){const n=mats(o).filter(x=>o.m[x.id]>0).length;nb.textContent=n?' · '+n:''}}
+function sOwn(l,q){const left=Math.max(0,l.tasks.length-q.ti),net=isNet(l);
+let h=`<div class="card"><b>${net?'Объясни своими словами':'Твоя очередь'}</b><p style="margin:6px 0 0">${esc(l.own)}</p></div>`;
+h+=`<textarea class="in" id="own" rows="${net?9:6}" autocorrect="off" spellcheck="false" placeholder="${net?'Пиши по-русски, как объяснял бы коллеге. Claude прочитает это в отчёте и по этому оценит понимание темы.':'Пиши по-английски. Ошибки — это нормально, Claude их разберёт.'}">${esc(q.own||'')}</textarea>`;
+h+=net?'<div class="hint">Сохраняется само. Своими словами, без копирования из теории — так видно, что понятно, а что нет.</div>':
+`<div class="hn" id="hints">${hintsHtml(q.own)}</div><div class="hint">Сохраняется само. Подсказки выше — по твоим частым ошибкам, это не оценка. Потом скажи текст вслух. Проверка произношения: в Заметках включи английскую клавиатуру, нажми микрофон и продиктуй. Записалось правильно — значит, тебя поймут.</div>`;
+h+='<div style="height:14px"></div>';
+if(q.done)h+='<button class="btn" data-a="step" data-s="done">Готово</button>';
+else if(left)h+=`<button class="btn g" data-a="step" data-s="tasks">Осталось: ${left} — перейти к ним</button>`;
+else h+='<button class="btn" data-a="finish">Закончить урок ✓</button>';
+return h}
 
-function render(){$('hd').innerHTML=vHead();$('app').innerHTML={est:vEst,mat:vMat,con:vCon,set:vSet}[tab]();bar()}
+function sDone(l,q){const n=l.tasks.length,sc=q.sc||[okN(q),n],s=sOf(l),c=curL(s),net=isNet(l);
+const nw=(l.words||[]).length+(l.terms||[]).length+(l.cards||[]).length;
+let h=`<div class="hero${net?' nt':''}">${wring(pct(sc[0],sc[1]))}<div class="info"><b>${l.sd?'Глава пройдена':'Урок пройден'}</b><p>${SN(l,'tasks')}: ${sc[0]} из ${sc[1]}.${l.lab?` Лаба: ${(q.lab||[]).length} из ${l.lab.steps.length} шагов.`:''}${nw?' Карточек добавлено: '+nw+'.':''}</p></div></div>`;
+if(l.sd)h+=`<button class="note in" data-a="tab" data-t="stats">🏁 Глава ${l.num} пройдена на телефоне. Лабу главы сделай на компьютере в СДСМ, потом пришли Claude отчёт отсюда и из СДСМ.</button>`;
+else if(subj(s).filter(x=>x.w==l.w).every(x=>pr(x.id).done))h+=`<button class="note in" data-a="tab" data-t="stats">🏁 ${net?'Модуль':'Неделя'} ${l.w} пройден${net?'':'а'}. Открой «Прогресс», составь отчёт и пройди проверку с Claude в чате.</button>`;
+if(l.lab&&(q.lab||[]).length<l.lab.steps.length)h+=`<button class="note am" data-a="step" data-s="lab">Лаба не доделана: ${(q.lab||[]).length} из ${l.lab.steps.length}. Вернись к ней, когда будешь за компьютером.</button>`;
+if((q.own||'').trim())h+=`<h2>${net?'Твоё объяснение':'Твои предложения'}</h2><div class="card pre">${esc(q.own.trim())}</div>`;
+const nx=l.sd||!net?c:null,wd=l.sd?'Следующая глава':'Следующий урок';
+if(nx)h+=doneToday(s)?`<div class="mu" style="margin:0 4px 12px">${wd} ${lnum(nx)} — лучше завтра.</div>`:`<button class="btn" data-a="open" data-l="${nx.id}">${wd} ${lnum(nx)} →</button>`;
+return h+`<button class="btn g" data-a="deck" data-d="${s}">Повторить карточки</button><button class="btn g" data-a="close">${net?'К главам':'Ко всем урокам'}</button>`}
 
-// ---------- нижние листы ----------
-function openSheet(title,body,opt={}){sheetSave=opt.save||null;sheetDel=opt.del||null;
-$('sh').innerHTML=`<div class="ov" data-a="sclose"></div><div class="pn"><div class="grab"></div><div class="sht"><h3>${esc(title)}</h3><button class="x" data-a="sclose" aria-label="Закрыть">✕</button></div>${body}`+
-(opt.save?'<button class="btn y" data-a="ssave" style="margin-top:22px">Сохранить</button>':'')+(opt.extra||'')+(opt.del?`<button class="btn r" data-a="sdel">${opt.delT||'Удалить'}</button>`:'')+'</div>';
-$('sh').classList.add('open');$('sh').querySelector('.pn').scrollTop=0}
-function closeSheet(){$('sh').classList.remove('open');$('sh').innerHTML='';sheetSave=sheetDel=null}
-const chips=(tg,arr,v)=>`<div class="chips">${arr.map(s=>`<button type="button" class="${s==v?'on':''}" data-a="chip" data-tg="${tg}" data-v="${esc(s)}">${esc(s)}</button>`).join('')}</div>`;
-const unitField=(u,list=UNITS)=>`<label class="lb">Единица</label><input class="in" id="f_u" value="${esc(u)}">${chips('f_u',list,u)}`;
+function vLesson(){
+const l=cur();if(!l){open[tab]=null;return tab=='net'?vNet():vEn()}
+const q=P(l.id),ss=stepsOf(l);if(!ss.includes(q.st)&&q.st!='done')q.st=ss[0];
+let h=`<div class="lh"><button class="back" data-a="close">‹ ${isNet(l)?'Сети':'Все уроки'}</button><button class="qb" data-a="ask">❓ Непонятно</button></div><div class="top"><small>${l.sd?'Глава '+l.num+' · '+esc(partT(l.part)):isNet(l)?'Модуль '+l.w+' · урок '+l.n+' · '+esc(l.g):'Урок '+lnum(l)+' · '+esc(l.g)}</small><h1 class="h1s">${esc(l.t)}</h1></div>`;
+h+=`<div class="seg">${ss.map(s=>`<button class="${s==q.st?'on':''}" data-a="step" data-s="${s}">${SN(l,s)}${s=='tasks'&&q.ti>=l.tasks.length?' ✓':''}</button>`).join('')}</div>`;
+return h+{rule:sRule,text:sText,theory:sTheory,lab:sLab,book:sBook,brk:sBrk,und:sUnd,tasks:sTasks,own:sOwn,done:sDone}[q.st](l,q)}
 
-function conSheet(id){const i=S.cons.findIndex(x=>x.id==id),x=i>=0?S.cons[i]:{id:'',n:'',u:'шт',p:0};
-openSheet(i>=0?'Расходник':'Новый расходник',`<label class="lb">Название</label><input class="in" id="f_n" value="${esc(x.n)}" placeholder="Например: Хомуты 200 мм">`+unitField(x.u,CUNITS)+
-`<label class="lb">Цена за единицу, ₽</label><input class="in mono" id="f_p" inputmode="decimal" value="${inV(x.p)}" placeholder="0"><p class="hint">Цена общая для всех объектов.</p>`,
-{save:()=>{const n=$('f_n').value.trim();if(!n){alert('Напиши название');return}const p=num($('f_p').value);
-const nx={id:x.id||uid('c'),n,u:$('f_u').value.trim()||'шт',p:p>0?r2(p):0};if(i>=0)S.cons[i]=nx;else S.cons.push(nx);return true},
-del:i>=0?()=>{if(!confirm('Удалить «'+x.n+'»? Количество по нему во всех объектах тоже удалится.'))return;
-S.cons.splice(i,1);S.objs.forEach(o=>{delete o.c[x.id]});return true}:null})}
+function goStep(l,s){const q=P(l.id);q.st=s;T={};TR=new Set();hush();
+if(s=='text')addWords(l);if(s=='theory'||s=='book'){addWords(l);act().th=1}}
 
-function itemSheet(kind,id){
-const L=kind=='w'?S.works:S.mats,i=L.findIndex(x=>x.id==id),x=i>=0?L[i]:{id:'',g:(L[L.length-1]||{}).g||'Прочее',n:'',u:'шт',p:0};
-const gs=[...new Set(L.map(y=>y.g))];
-let b=`<label class="lb">Название</label><input class="in" id="f_n" value="${esc(x.n)}" placeholder="${kind=='w'?'Например: Установка датчика движения':'Например: Кабель ВВГнг-LS 3×4'}">`+unitField(x.u)+
-`<label class="lb">Раздел</label><input class="in" id="f_g" value="${esc(x.g)}">${chips('f_g',gs,x.g)}<p class="hint">Выбери раздел или впиши новый.</p>`;
-if(kind=='w')b+=`<label class="lb">Цена за единицу, ₽</label><input class="in mono" id="f_p" inputmode="decimal" value="${inV(x.p)}" placeholder="0">`;
-openSheet(i>=0?(kind=='w'?'Работа':'Материал'):(kind=='w'?'Новая работа':'Новый материал'),b,{
-save:()=>{const n=$('f_n').value.trim(),g=$('f_g').value.trim()||'Прочее',u=$('f_u').value.trim()||'шт';if(!n){alert('Напиши название');return}
-const nx={id:x.id||uid(kind),g,n,u};if(kind=='w'){const p=num($('f_p').value);nx.p=p>0?r2(p):0}
-if(i>=0&&L[i].g==g)L[i]=nx;else{if(i>=0)L.splice(i,1);insertG(L,nx)}return true},
-del:i>=0?()=>{if(!confirm('Удалить «'+x.n+'»? Количество по этой позиции во всех объектах тоже удалится.'))return;
-L.splice(i,1);S.objs.forEach(o=>{delete o.q[x.id];delete o.m[x.id];delete o.b[x.id]});return true}:null})}
+// ---------- карточки ----------
+function vCards(){
+if(cs)return vSession();
+const d=dueList(deck).length,C=cstats(deck),nd=nextDue(deck);
+let h=head(deck=='en'?'Слова из уроков':'Понятия из уроков по сетям','Карточки');
+h+=`<div class="seg">${[['en','Английский'],['net','Сети']].map(o=>`<button class="${deck==o[0]?'on':''}" data-a="deck" data-d="${o[0]}">${o[1]} · ${dueList(o[0]).length}</button>`).join('')}</div>`;
+h+=`<div class="hero wrap${deck=='net'?' nt':''}">${wring(pct(C.kn,C.all))}<div class="info"><b>${d?'На сегодня: '+d:'На сегодня всё'}</b><p>${d?'Примерно '+Math.max(1,Math.round(d/(deck=='en'?4:3)))+' мин.':nd?'Следующие — '+fmtD(nd)+'.':deck=='en'?'Слова появятся после текста урока.':'Карточки появятся после теории урока.'}</p></div>`+
+`<div class="stats"><div><small>Новые</small><b>${C.nw}</b></div><div><small>Учу</small><b>${C.lr}</b></div><div><small>Знаю</small><b>${C.kn}</b></div></div></div>`;
+if(d)h+='<button class="btn" data-a="startc">Начать повторение</button>';
+h+=deck=='en'?'<div class="card mu">«Помню» — слово вернётся через несколько дней, и каждый раз всё позже. «Трудно» — вернётся скоро. «Не помню» — ещё раз сейчас и снова завтра. Когда слово начинает узнаваться, карточка переворачивается: видишь русское, вспоминаешь английское.</div>':
+'<div class="card mu">Прочитай вопрос и ответь вслух или в уме своими словами. Потом открой ответ и честно сравни. «Помню» — только если ответил по сути верно.</div>';
+const H=hardW(deck);
+if(H.length)h+=`<h2>Трудные</h2><div class="card">${H.map(k=>deck=='en'?row(k,S.cards[k].ru+' · ошибок: '+S.cards[k].x):`<div class="sn"><div class="en" style="font-size:15px">${S.cards[k].h?S.cards[k].q:esc(S.cards[k].q)}<span class="tr">ошибок: ${S.cards[k].x}</span></div></div>`).join('')}</div>`;
+return h}
 
-function priceSheet(id){const x=S.works.find(y=>y.id==id);if(!x)return;
-openSheet('Цена',`<div class="pname">${esc(x.n)}</div><label class="lb">Цена за ${esc(x.u)}, ₽</label><input class="in mono" id="f_p" inputmode="decimal" value="${inV(x.p)}" placeholder="0"><p class="hint">Цена сохранится в прайсе и пересчитается во всех объектах.</p>`,
-{save:()=>{const p=num($('f_p').value);x.p=p>0?r2(p):0;return true}})}
+function vSession(){
+if(cs.i>=cs.q.length)return `<div class="hero${cs.d=='net'?' nt':''}"><div class="info"><b>Готово!</b><p>Повторено карточек: ${cs.done}. Завтра будут новые повторения.</p></div></div><button class="btn" data-a="cend">Закончить</button>`;
+const key=cs.q[cs.i],c=S.cards[key];
+let h=`<div class="lh"><button class="back" data-a="cend">‹ Карточки</button><span class="mu">${cs.i+1} из ${cs.q.length}</span></div><div class="bar"><i style="width:${pct(cs.i,cs.q.length)}%"></i></div>`;
+if(c.d){const f=x=>c.h?x:esc(x);h+=`<div class="card fc"><div class="mu">Вспомни ответ</div><div class="w s">${f(c.q)}</div>${cs.flip?`<div class="a s">${f(c.a)}</div>`:''}</div>`}
+else{const rev=c.b>=2;
+h+=`<div class="card fc"><div class="mu">${rev?'Вспомни по-английски':'Вспомни перевод'}</div><div class="w">${esc(rev?c.ru:key)}</div>${rev?'':sayB(key)}`;
+if(cs.flip)h+=`<div class="a">${esc(rev?key:c.ru)}</div>${rev?sayB(key):''}`;
+h+='</div>'}
+return h+(cs.flip?'<div class="three"><button class="btn r" data-a="grade" data-g="0">Не помню</button><button class="btn g" data-a="grade" data-g="1">Трудно</button><button class="btn" data-a="grade" data-g="2">Помню</button></div>':'<button class="btn" data-a="flip">Показать ответ</button>')}
 
-function xwSheet(id){const o=cur(),i=o.xw.findIndex(x=>x.id==id),x=i>=0?o.xw[i]:{id:'',n:'',u:'шт',p:0};
-openSheet(i>=0?'Разовая работа':'Новая разовая работа',`<label class="lb">Название</label><input class="in" id="f_n" value="${esc(x.n)}" placeholder="Например: Перенос щита">`+unitField(x.u)+
-`<label class="lb">Цена за единицу, ₽</label><input class="in mono" id="f_p" inputmode="decimal" value="${inV(x.p)}" placeholder="0"><p class="hint">Есть только в объекте «${esc(o.n)}».</p>`,
-{save:()=>{const n=$('f_n').value.trim();if(!n){alert('Напиши название');return}const p=num($('f_p').value);
-const nx={id:x.id||uid('x'),n,u:$('f_u').value.trim()||'шт',p:p>0?r2(p):0};if(i>=0)o.xw[i]=nx;else{o.xw.push(nx);o.q[nx.id]=1}return true},
-del:i>=0?()=>{if(!confirm('Удалить «'+x.n+'»?'))return;o.xw.splice(i,1);delete o.q[x.id];return true}:null})}
+function grade(g){const key=cs.q[cs.i],c=S.cards[key];
+if(!cs.again.includes(key)){c.n++;inc(c.d?'nc':'c');cs.done++;
+if(g==0){c.b=1;c.x++;c.due=add(today(),1);cs.q.push(key);cs.again.push(key)}
+else if(g==1){c.b=Math.max(1,c.b);c.due=add(today(),Math.max(1,Math.round(BOX[c.b]/2)))}
+else{c.b=Math.min(BOX.length-1,c.b+1);c.due=add(today(),BOX[c.b])}}
+cs.i++;cs.flip=false}
 
-function xmSheet(id,g){const o=cur(),i=o.xm.findIndex(x=>x.id==id),x=i>=0?o.xm[i]:{id:'',g,n:'',u:'шт'};
-openSheet('Свой вариант',`<div class="pname">Раздел «${esc(x.g)}»</div><label class="lb">Название</label><input class="in" id="f_n" value="${esc(x.n)}" placeholder="${x.g=='Рамки'?'Например: Рамка на 4 поста':'Название материала'}">`+unitField(x.u)+
-`<label class="lb">Количество</label><input class="in mono" id="f_q" inputmode="decimal" value="${inV(o.m[x.id])}" placeholder="0"><p class="hint">Есть только в объекте «${esc(o.n)}».</p>`,
-{save:()=>{const n=$('f_n').value.trim();if(!n){alert('Напиши название');return}
-const nx={id:x.id||uid('y'),g:x.g,n,u:$('f_u').value.trim()||'шт'};if(i>=0)o.xm[i]=nx;else o.xm.push(nx);setQ(o,'m',nx.id,num($('f_q').value));return true},
-del:i>=0?()=>{if(!confirm('Удалить «'+x.n+'»?'))return;o.xm.splice(i,1);delete o.m[x.id];delete o.b[x.id];return true}:null})}
+// ---------- прогресс ----------
+function scOf(s){const dl=subj(s).filter(l=>pr(l.id).sc);return [dl.reduce((a,l)=>a+pr(l.id).sc[0],0),dl.reduce((a,l)=>a+pr(l.id).sc[1],0)]}
+function vStats(){
+const C=cstats('en'),[ok,tot]=scOf('en'),[nok,ntot]=scOf('net');
+let days=0;for(let i=0;i<7;i++)if(busy(S.act[ago(i)]))days++;
+let h=head('С '+fmtD(S.start)+' · дней с занятиями за неделю: '+days,'Прогресс');
+h+='<button class="btn" data-a="rep">Составить отчёт для Claude</button><textarea class="in mono" id="io" rows="5" placeholder="Здесь появится отчёт по английскому и сетям. Он сразу копируется: вставь его в чат с Claude."></textarea>';
+h+=`<h2>Английский</h2><div class="hero wrap">${wring(pct(ok,tot))}<div class="info"><b>Точность заданий</b><p>По первой попытке в пройденных уроках.</p></div>`+
+`<div class="stats"><div><small>Уроков</small><b>${EN.filter(l=>pr(l.id).done).length}</b></div><div><small>Слов знаю</small><b>${C.kn}</b></div><div><small>Слов всего</small><b>${C.all}</b></div></div></div>`;
+h+='<div class="card"><b>Когда переходить дальше</b>'+[[C.kn>=200,`Около 200 слов «знаю» — сейчас ${C.kn}`],[0,'Проверка с Claude на 80% и выше две недели подряд'],[0,'8–10 предложений о себе без переводчика'],[0,'Незнакомый текст A2 понятен примерно на 70%']].map(x=>`<div class="st ${x[0]?'d':''}"><b>${x[0]?'✓':''}</b><span>${x[1]}</span></div>`).join('')+'<div class="hint">Последние три пункта проверяет Claude в чате.</div></div>';
+h+=`<h2>Сети</h2><div class="card"><div class="kp"><div><small>Глав</small><b>${SD.filter(l=>pr(l.id).done).length}</b></div><div><small>Тесты</small><b>${ntot?pct(nok,ntot)+'%':'—'}</b></div><div><small>Подсети</small><b>${S.sub.n?pct(S.sub.ok,S.sub.n)+'%':'—'}</b></div></div></div>`;
+h+=`<div class="card"><b>Уровни по темам</b><div class="mu" style="margin:2px 0 8px">Оценка Claude от ${ND.levelsDate?fmtD(ND.levelsDate):'—'}. Растёт только после перепроверки — за показанное понимание.</div>`+LV.map(x=>`<div class="lvr"><span>${esc(x.t)}</span><div class="lvb"><i style="width:${(x.v||0)*10}%"></i></div><b>${x.v==null?'—':x.v+'/10'}</b></div>`).join('')+'</div>';
+const Q=S.q.map((x,i)=>[x,i]).reverse();
+h+='<h2>Непонятно</h2>'+(Q.length?'<div class="card">'+Q.map(([x,i])=>`<div class="li"><div class="ico ${x.ok?'dn':''}">${x.ok?'✓':'?'}</div><div class="ht"><b>${esc(x.t)}</b><small>${esc(x.c)} · ${fmtS(x.d)}${x.ok?' · разобрано':''}</small></div><button class="ib" data-a="qok" data-i="${i}" aria-label="Разобрано">✓</button><button class="ib" data-a="qdel" data-i="${i}" aria-label="Удалить">✕</button></div>`).join('')+'</div>':'<div class="card mu">Пока пусто. В каждом уроке есть кнопка «❓ Непонятно».</div>');
+return h}
 
-function objsSheet(){
-const b='<div class="box">'+S.objs.map(o=>{const c=calc(o);
-return `<div class="row ${o.id==S.cur?'sel':''}"><button class="rt plain" data-a="pick" data-id="${o.id}"><b>${esc(o.n)}</b><span class="pr">${esc([o.cl,fmtD(o.d)].filter(Boolean).join(' · '))}</span></button>`+
-(c.lines.length?`<span class="amt mono">${money(c.tot)}</span>`:'')+`<button class="ib" data-a="eobj" data-id="${o.id}" aria-label="Изменить">✎</button></div>`}).join('')+'</div>';
-openSheet('Объекты',b+'<button class="btn y" data-a="eobj" data-id="">＋ Новый объект</button>')}
+function repPart(s){const C=cstats(s),net=s=='net';let r=net?'Главы СДСМ на телефоне:\n':'Уроки:\n',any=0;
+subjAll(s).forEach(l=>{const q=pr(l.id);if(!q.st&&!q.done)return;any=1;const sc=q.sc;
+r+=`- ${lnum(l)} ${l.t}: ${q.done?'пройден'+(l.sd?'а ':' ')+fmtS(q.done):'в процессе'}${sc?`, ${l.sd?'тест':net?'вопросы':'задания'} ${sc[0]}/${sc[1]} (${pct(sc[0],sc[1])}%)`:''}${l.lab?`, лаба ${(q.lab||[]).length}/${l.lab.steps.length}`:''}${l.und?`, «Объясни» ${Object.values(q.und||{}).filter(x=>x.trim()).length}/${l.und.length}`:''}\n`});
+if(!any)r+='- пока не начинал\n';
+r+=`Карточки: всего ${C.all}, знаю ${C.kn}, учу ${C.lr}, новые ${C.nw}. На сегодня осталось: ${dueList(s).length}.\n`;
+const H=hardW(s);if(H.length)r+='Трудные: '+H.map(k=>`${net?strip(S.cards[k].q):k} (${S.cards[k].x})`).join('; ')+'\n';
+const E=S.err.filter(e=>{const l=les(e.l);return l&&sOf(l)==s&&diff(e.d,today())<=10}).slice(-25);
+if(E.length){r+='Ошибки:\n';E.forEach(e=>{r+=`- [${lnum(les(e.l))}] ${strip(e.q)} → мой ответ: «${strip(e.y)}», верно: «${strip(e.a)}»${e.s?' (засчитал сам, проверь)':''}\n`})}
+const UN=subjAll(s).filter(l=>l.und&&pr(l.id).ownD&&diff(pr(l.id).ownD,today())<=10&&Object.values(pr(l.id).und||{}).some(x=>x.trim()));
+UN.forEach(l=>{const q=pr(l.id);r+=`«Объясни» ${lnum(l)} (оцени понимание):\n`;l.und.forEach((u,i)=>{const a=((q.und||{})[i]||'').trim();if(a)r+=`${i+1}) ${strip(u.q)}\n${a}\n`})});
+const O=subjAll(s).filter(l=>{const q=pr(l.id);return (q.own||'').trim()&&q.ownD&&diff(q.ownD,today())<=10});
+if(O.length){r+=net?'Мои объяснения (оцени понимание):\n':'Мои предложения (исправь ошибки):\n';O.forEach(l=>{const q=pr(l.id);r+=`[${lnum(l)}${q.done?'':', черновик'}]\n${q.own.trim()}\n`})}
+return r}
+function report(){
+let r=`Отчёт для Claude · ${nowS()} · приложение ${APP_V}, английский от ${window.LESSONS_DATE||'?'}, сети от ${ND.date||'?'}\n\n=== АНГЛИЙСКИЙ ===\n`+repPart('en');
+r+='\n=== СЕТИ ===\nУровни (оценка Claude от '+(ND.levelsDate||'?')+'): '+LV.map(x=>`${x.t} ${x.v==null?'—':x.v}`).join(', ')+'\n'+repPart('net');
+r+=`Тренажёр подсетей: всего ${S.sub.n}, верно ${S.sub.ok} (${pct(S.sub.ok,S.sub.n)}%).\n`;
+r+='\nАктивность за 7 дней:\n';
+for(let i=6;i>=0;i--){const A=S.act[ago(i)]||{},e=[A.t&&'заданий '+A.t,A.c&&'карточек '+A.c,A.h&&'слушал текст',A.x&&'доп. чтение',A.o&&'писал своё'].filter(Boolean),n=[A.th&&'теория',A.nt&&'вопросов '+A.nt,A.nc&&'карточек '+A.nc,A.s&&`подсетей ${A.s} (верно ${A.so||0})`,A.no&&'объяснял'].filter(Boolean);
+r+=`- ${fmtS(ago(i))}: ${e.length||n.length?(e.length?'англ — '+e.join(', '):'')+(e.length&&n.length?'; ':'')+(n.length?'сети — '+n.join(', '):''):'—'}\n`}
+const Q=S.q.filter(x=>!x.ok);if(Q.length){r+='\nНепонятно:\n';Q.forEach(x=>{r+=`- [${x.c}] ${x.t}\n`})}
+return r}
 
-function objSheet(id){const i=S.objs.findIndex(o=>o.id==id),o=i>=0?S.objs[i]:newObj('');
-openSheet(i>=0?'Объект':'Новый объект',`<label class="lb">Название</label><input class="in" id="f_n" value="${esc(o.n)}" placeholder="Например: Дом, ул. Лесная, 12">`+
-`<label class="lb">Заказчик</label><input class="in" id="f_c" value="${esc(o.cl)}" placeholder="Имя и телефон">`+
-`<label class="lb">Заметка</label><textarea class="in" id="f_t" rows="3" placeholder="Что важно помнить по объекту">${esc(o.nt)}</textarea>`,
-{save:()=>{const n=$('f_n').value.trim();if(!n){alert('Напиши название');return}o.n=n;o.cl=$('f_c').value.trim();o.nt=$('f_t').value.trim();
-if(i<0){S.objs.unshift(o);S.cur=o.id}return true},
-extra:i>=0?`<button class="btn" data-a="dupobj" data-id="${o.id}">Сделать копию объекта</button>`:'',
-del:i>=0?()=>{if(!confirm('Удалить объект «'+o.n+'» вместе со сметой и материалами?'))return;S.objs.splice(i,1);
-if(!S.objs.length)S.objs.push(newObj());if(!S.objs.some(x=>x.id==S.cur))S.cur=S.objs[0].id;return true}:null,delT:'Удалить объект'})}
+// ---------- ещё ----------
+function vMore(){
+let h=head('Настройки и данные','Ещё');
+h+='<h2>Голос</h2><div class="seg">'+[[0.6,'Медленно'],[0.8,'Спокойно'],[1,'Обычно']].map(o=>`<button class="${S.rate==o[0]?'on':''}" data-a="rate" data-v="${o[0]}">${o[1]}</button>`).join('')+'</div>';
+h+=`<select class="in" id="voice"><option value="">Голос из настроек iPhone</option>${VO.map(v=>`<option value="${esc(v.voiceURI)}" ${v.voiceURI==S.voice?'selected':''}>${esc(v.name)} (${esc(v.lang)})</option>`).join('')}</select>`;
+h+='<button class="btn g" data-a="vtest" style="margin:10px 0 0">🔊 Проверить голос</button><div class="hint">Лучший голос: в Настройках iPhone → Универсальный доступ → Устный контент → Голоса → Английский скачай голос высокого качества (например, Ava или Zoe) и нажми на него, чтобы рядом стояла галочка. Здесь оставь «Голос из настроек iPhone». Скачанные голоса в этом списке не показываются — так устроен Safari, но звучать будут. Нет звука — проверь беззвучный режим и громкость.</div>';
+h+=`<h2>Резервная копия</h2><div class="mu" style="margin:0 4px 10px">${S.bk?'Последняя копия: '+fmtD(S.bk)+'.':'Копия ещё не делалась.'} Прогресс по английскому и сетям хранится только в этом телефоне. Раз в неделю сохраняй копию в Заметки.</div>`+
+'<button class="btn" data-a="exp">Сделать резервную копию</button><button class="btn g" data-a="imp">Загрузить копию из текста</button>'+
+'<textarea class="in mono" id="io" rows="5" placeholder="Здесь появится текст копии, он сразу копируется. Чтобы восстановить прогресс, вставь сюда копию и нажми «Загрузить»."></textarea>';
+h+='<h2>Оформление</h2><div class="seg">'+[['auto','Как в системе'],['light','Светлая'],['dark','Тёмная']].map(o=>`<button class="${S.theme==o[0]?'on':''}" data-a="theme" data-v="${o[0]}">${o[1]}</button>`).join('')+'</div>';
+h+=`<h2>О приложении</h2><div class="mu" style="margin:0 4px 10px">Версия ${APP_V}. Уроки английского от ${window.LESSONS_DATE?fmtD(window.LESSONS_DATE):'?'}, сетей от ${ND.date?fmtD(ND.date):'?'}. Прогресс хранится отдельно от приложения, поэтому при обновлении он не теряется.</div><button class="btn g" data-a="upd">Проверить обновление</button>`;
+return h}
 
-function estSheet(){const o=cur(),c=calc(o);if(!c.lines.length)return;
-let h=`<div class="rc"><div class="rch"><div><small>Смета · электромонтаж</small><b>${esc(o.n)}</b>${o.cl?`<span>${esc(o.cl)}</span>`:''}</div><span class="mono">${fmtD(today())}</span></div>`;
-groups(c.lines).forEach(([g,ls])=>{h+=`<h4>${esc(g)}</h4>`+ls.map(l=>`<div class="ln"><div class="t">${esc(l.n)}<small class="mono">${fN(l.q)} ${esc(l.u)} × ${l.p?money(l.p):'нет цены'}</small></div><div class="s mono">${money(l.s)}</div></div>`).join('')});
-h+=`<div class="tl"><div class="sm"><span>Сумма</span><b class="mono">${money(c.sum)}</b></div>`+
-`<div class="sm"><span>Скидка</span><span class="dv"><span class="mono" id="e_dv">${c.dv?'−'+money(c.dv):''}</span><label class="pf"><input class="mono" id="f_disc" inputmode="decimal" enterkeyhint="done" value="${inV(c.disc)}" placeholder="0" aria-label="Скидка в процентах"><span>%</span></label></span></div></div>`;
-h+=`<div class="grand"><span>Итого</span><b class="mono" id="e_tot">${money(c.tot)}</b></div><p class="hint" style="margin-top:12px">${footNote(c)}</p></div>`;
-if(c.miss)h+=`<div class="note bad">Позиций без цены: ${c.miss}. Они посчитаны как 0 ₽. Цены ставятся в «Настройках».</div>`;
-h+=`<div class="two"><button class="btn y" data-a="eshare">Отправить</button><button class="btn" data-a="ecopy">Скопировать</button></div>`;
-openSheet('Смета',h)}
+// ---------- общее ----------
+const ICONS={
+en:'<path d="M4 19.5V5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2v0a2 2 0 0 0 2 2h14"/><path d="M8 7.5h8M8 11h5"/>',
+net:'<rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="2.5" y="16" width="6" height="5" rx="1.2"/><rect x="15.5" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M5.5 16v-2.5a1.5 1.5 0 0 1 1.5-1.5h10a1.5 1.5 0 0 1 1.5 1.5V16"/>',
+cards:'<rect x="3" y="7.5" width="13.5" height="13.5" rx="2.5"/><path d="M7.5 3.5h11A2.5 2.5 0 0 1 21 6v11"/>',
+stats:'<path d="M5 20v-8M11 20V5M17 20v-5M3 20h18"/>',
+more:'<rect x="4" y="4" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2"/>'};
+function render(){
+shownDay=today();
+$('app').innerHTML={en:()=>open.en?vLesson():vEn(),net:()=>open.net&&!tz?vLesson():vNet(),cards:vCards,stats:vStats,more:vMore}[tab]();
+$('nav').innerHTML=[['en','Английский'],['net','Сети'],['cards','Карточки'],['stats','Прогресс'],['more','Ещё']].map(x=>`<button class="${tab==x[0]?'on':''}" data-a="tab" data-t="${x[0]}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[x[0]]}</svg>${x[1]}</button>`).join('')}
 
-// ---------- текст для заказчика и магазина ----------
-function estText(o){const c=calc(o);
-let t=`Смета на электромонтажные работы\nОбъект: ${o.n}\n`+(o.cl?`Заказчик: ${o.cl}\n`:'')+`Дата: ${fmtD(today())}\n`,i=0;
-groups(c.lines).forEach(([g,ls])=>{t+=`\n${g}\n`;ls.forEach(l=>{t+=`${++i}. ${l.n}: ${fN(l.q)} ${l.u} × ${money(l.p)} = ${money(l.s)}\n`})});
-t+='\n';if(c.disc)t+=`Сумма: ${money(c.sum)}\nСкидка ${fN(c.disc)}%: −${money(c.dv)}\n`;
-return t+`Итого: ${money(c.tot)}\n\n${footNote(c)}`}
-function matText(o){const need=mats(o).filter(x=>o.m[x.id]>0&&!o.b[x.id]);if(!need.length)return'';
-let t=`Купить для объекта «${o.n}»\n`;groups(need).forEach(([g,it])=>{t+=`\n${g}\n`;it.forEach(x=>{t+=`— ${x.n}: ${fN(o.m[x.id])} ${x.u}\n`})});return t.trim()}
+function openSheet(title,body,onSave){
+sheetSave=onSave;
+$('sh').innerHTML=`<div class="ov" data-a="sclose"></div><div class="pn"><div class="grab"></div><h3>${esc(title)}</h3>${body}<div class="sb"><button class="btn g" data-a="sclose">Отмена</button><button class="btn" data-a="ssave">Сохранить</button></div></div>`;
+$('sh').classList.add('open')}
+function closeSheet(){$('sh').classList.remove('open');$('sh').innerHTML='';sheetSave=null}
 
-let tt;function toast(m){const e=$('toast');e.textContent=m;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),1900)}
-function share(t){if(navigator.share){navigator.share({text:t}).catch(err=>{if(!err||err.name!='AbortError')copy(t)});return}copy(t)}
-function copy(t,msg){const ok=()=>toast(msg||'Скопировано');
-if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(ok,()=>legacy(t,ok));else legacy(t,ok)}
-function legacy(t,ok){const ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:0;left:0;opacity:0';
-document.body.appendChild(ta);ta.select();let r=false;try{r=document.execCommand('copy')}catch(e){}ta.remove();r?ok():toast('Не получилось скопировать')}
+let tt;function toast(m){const e=$('toast');e.textContent=m;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),1800)}
+function copyText(text){if(navigator.clipboard)navigator.clipboard.writeText(text).then(()=>toast('Скопировано'),()=>toast('Не получилось скопировать'));else toast('Выдели текст и скопируй')}
+function copyIO(text){const io=$('io');io.value=text;io.select();copyText(text)}
 function applyTheme(){const r=document.documentElement;if(S.theme=='auto')r.removeAttribute('data-theme');else r.dataset.theme=S.theme;
 document.querySelector('meta[name=theme-color]').content=getComputedStyle(r).getPropertyValue('--bg').trim()}
-
-// ---------- события ----------
-document.addEventListener('input',e=>{const t=e.target,d=t.dataset;
-if(d.k){const o=cur(),v=num(t.value);setQ(o,d.k,d.id,v);save();t.closest('.row').classList.toggle('sel',v>0);counts();bar();return}
-if(d.price){const x=S.works.find(y=>y.id==d.price),v=num(t.value);if(x){x.p=v>0?r2(v):0;save()}return}
-if(t.id=='f_disc'){const o=cur(),v=num(t.value);o.disc=v>0?Math.min(100,v):0;save();const c=calc(o);
-$('e_dv').textContent=c.dv?'−'+money(c.dv):'';$('e_tot').textContent=money(c.tot)}});
+const top0=()=>window.scrollTo(0,0);
+function playDc(){const l=cur(),q=l&&P(l.id),t=l&&q.st=='tasks'&&l.tasks[T.show?T.k:q.ti];if(t&&t.k=='dc'&&!noEnVoice())say([tA(t)])}
 
 document.addEventListener('click',e=>{
-const b=e.target.closest('[data-a]');if(!b)return;
-const a=b.dataset.a,D=b.dataset;
+const b=e.target.closest('[data-a]');if(!b||b.disabled)return;
+const a=b.dataset.a,D=b.dataset,l=cur(),q=l&&P(l.id);
 switch(a){
-case 'tab':tab=D.t;closeSheet();render();window.scrollTo(0,0);return;
-case 'mmode':mmode=D.v;render();return;
-case 'objs':objsSheet();return;
-case 'pick':S.cur=D.id;closeSheet();save();render();window.scrollTo(0,0);return;
-case 'eobj':objSheet(D.id);return;
-case 'dupobj':{const o=S.objs.find(x=>x.id==D.id),c=JSON.parse(JSON.stringify(o));c.id=uid('o');c.n=o.n+' (копия)';c.d=today();c.b={};
-S.objs.unshift(c);S.cur=c.id;closeSheet();toast('Копия объекта создана');break}
-case 'inc':case 'dec':{const o=cur(),c=o[D.k][D.id]||0,v=Math.max(0,a=='inc'?Math.floor(c)+1:Math.ceil(c)-1);setQ(o,D.k,D.id,v);save();
-const r=b.closest('.row');r.querySelector('input').value=inV(v);r.classList.toggle('sel',v>0);counts();bar();return}
-case 'price':priceSheet(D.id);return;
-case 'exw':xwSheet(D.id);return;
-case 'exm':xmSheet(D.id);return;
-case 'xm':xmSheet('',D.g);return;
-case 'ew':itemSheet('w',D.id);return;
-case 'em':itemSheet('m',D.id);return;
-case 'econ':conSheet(D.id);return;
-case 'ci':{const o=cur();o.ci=!o.ci;break}
-case 'chip':{const f=$(D.tg);if(f)f.value=D.v;b.parentNode.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x==b));return}
-case 'calc':estSheet();return;
-case 'eshare':share(estText(cur()));return;
-case 'ecopy':copy(estText(cur()));return;
-case 'buy':{const o=cur();if(o.b[D.id])delete o.b[D.id];else o.b[D.id]=1;break}
-case 'mshare':case 'mcopy':{const t=matText(cur());if(!t){toast('Всё уже куплено');return}if(a=='mshare')share(t);else copy(t);return}
-case 'mreset':if(!confirm('Снять все отметки «куплено»?'))return;cur().b={};break;
+case 'tab':if(tab==D.t){if(D.t=='en'||D.t=='net')open[D.t]=null;if(D.t=='net')tz=null;if(D.t=='cards')cs=null}tab=D.t;hush();render();top0();return;
+case 'open':{const L=les(D.l);if(!L)return;tab=sOf(L);open[tab]=L.id;if(tab=='net')tz=null;const Q=P(L.id);goStep(L,D.s||(Q.done?'done':Q.st||stepsOf(L)[0]));save();render();top0();return}
+case 'close':open[tab]=null;hush();render();top0();return;
+case 'step':goStep(l,D.s);save();render();top0();return;
+case 'say':say([D.t]);return;
+case 'copy':copyText(D.t);return;
+case 'play':q.heard=true;act().h=1;save();say(l.text.map(s=>s[0]),hl);return;
+case 'stop':hush();hl(-1);return;
+case 'show':q.show=true;break;
+case 'trn':{const i=+D.i;if(!q.show&&i<1000)return;if(i>=1000)act().x=1;TR.has(i)?TR.delete(i):TR.add(i);save();render();return}
+case 'playm':act().x=1;save();say(l.more.map(s=>s[0]),i=>hl(i<0?-1:1000+i));return;
+case 'lck':{const i=+D.i,arr=q.lab||(q.lab=[]),j=arr.indexOf(i);if(j<0)arr.push(i);else arr.splice(j,1);save();
+b.closest('.ls').classList.toggle('d',j<0);b.textContent=j<0?'✓':i+1;const c=$('labc');if(c)c.textContent=arr.length+' из '+l.lab.steps.length;return}
+case 'pick':{const t=l.tasks[q.ti];if(T.show||!t)return;T.yi=+D.i;answer(l,q,q.ti,t,t.o[+D.i],+D.i==t.a);break}
+case 'pk':if(T.show)return;T.pk.push(+D.i);render();return;
+case 'unpk':if(T.show)return;T.pk.splice(+D.j,1);render();return;
+case 'rst':if(T.show)return;T.pk=[];render();return;
+case 'check':doCheck();return;
+case 'sayT':playDc();return;
+case 'dch':T.hint=true;render();return;
+case 'self':{const t=l.tasks[T.k];q.r[T.k]=2;T.ok=T.self=true;const er=S.err[S.err.length-1];if(er&&er.l==l.id&&er.q==tQ(t))er.s=1;if(!q.pass&&q.sc)q.sc[0]=okN(q);break}
+case 'next':{T={};render();top0();const x=$('ans');if(x)x.focus();playDc();return}
+case 'redo':q.ti=0;q.r=[];q.pass=(q.pass||0)+1;T={};break;
+case 'tog':{if(T.show)return;const i=+D.i,j=T.sel.indexOf(i);if(j<0)T.sel.push(i);else T.sel.splice(j,1);render();return}
+case 'goto':{const el=$('bp'+D.i);if(el)el.scrollIntoView({behavior:'smooth'});return}
+case 'finish':if(l.sd){const n=Object.values(q.und||{}).filter(x=>x.trim().length>=20).length;if(n<l.und.length&&!confirm(`Ответов «Объясни»: ${n} из ${l.und.length}. Закончить главу так? По этим ответам Claude видит, что тема понятна.`))return}
+else if(!(q.own||'').trim()&&!confirm(isNet(l)?'Закончить урок без объяснения? По нему Claude видит, что тема понятна.':'Закончить урок без своих предложений? Это самая полезная часть.'))return;
+q.done=today();q.st='done';T={};save();render();top0();return;
+case 'ask':{const t=q.st=='tasks'&&l.tasks[T.show?T.k:q.ti];
+const ctx=`${lnum(l)}, ${SN(l,q.st)||'урок'}`+(t?` №${(T.show?T.k:q.ti)+1}: ${tQ(t)}`:'');
+openSheet('Что непонятно?',`<div class="mu">Урок ${esc(ctx)}</div><textarea class="in" id="f_q" rows="4" style="margin-top:12px" placeholder="${isNet(l)?'Например: почему коммутатор не учится по MAC назначения?':'Например: почему здесь the, а не a?'}"></textarea><div class="hint">Записал — и иди дальше. Разберём с Claude.</div>`,
+()=>{const x=$('f_q').value.trim();if(!x)return;S.q.push({c:ctx,t:x,d:today(),ok:false});toast('Записал. Идём дальше');return true});
+setTimeout(()=>$('f_q')&&$('f_q').focus(),50);return}
+case 'deck':tab='cards';deck=D.d;cs=null;hush();render();top0();return;
+case 'startc':cs={d:deck,q:dueList(deck),i:0,flip:false,done:0,again:[]};render();top0();return;
+case 'flip':{cs.flip=true;const c=S.cards[cs.q[cs.i]];if(!c.d)say([cs.q[cs.i]]);render();return}
+case 'grade':grade(+D.g);break;
+case 'cend':cs=null;hush();render();top0();return;
+case 'tz':tab='net';open.net=null;tz={m:'net',p:gen('net'),res:null};render();top0();return;
+case 'tzm':tz={m:D.v,p:gen(D.v),res:null};render();return;
+case 'tzc':tzCheck();return;
+case 'tzs':{tz.res={v:D.v,all:(D.v=='1')===tz.p.same};tzDone(tz.res.all);return}
+case 'tzn':{tz.p=gen(tz.m);tz.res=null;render();const f=document.querySelector('.tf input,#tz_a');if(f)f.focus();return}
+case 'tzx':tz=null;render();top0();return;
+case 'rate':S.rate=+D.v;break;
+case 'vtest':say(['Hello! I am a network engineer. I work from home.']);return;
 case 'theme':S.theme=D.v;applyTheme();break;
-case 'exp':{const t=JSON.stringify(S);$('io').value=t;copy(t,'Копия скопирована. Сохрани её в Заметки');return}
+case 'rep':copyIO(report());return;
+case 'exp':S.bk=today();save();copyIO(JSON.stringify(S));toast('Копия готова. Сохрани её в Заметки');return;
 case 'imp':{let o;try{o=JSON.parse($('io').value)}catch(x){alert('Не удалось прочитать текст');return}
-if(!o||!o.v||!Array.isArray(o.works)){alert('Это не копия Электросметы');return}
-if(!confirm('Заменить все текущие данные этой копией?'))return;S=migrate(o);applyTheme();toast('Копия загружена');break}
+if(!o||!o.v||!o.cards||!o.L){alert('Это не копия этого приложения');return}
+if(!confirm('Заменить текущий прогресс этой копией?'))return;
+S=migrate(o);open={en:null,net:null};cs=null;tz=null;T={};applyTheme();toast('Копия загружена');break}
+case 'qok':S.q[D.i].ok=!S.q[D.i].ok;break;
+case 'qdel':if(!confirm('Удалить вопрос?'))return;S.q.splice(+D.i,1);break;
+case 'upd':toast('Проверяю…');(navigator.serviceWorker?navigator.serviceWorker.getRegistration().then(r=>r&&r.update()).catch(()=>{}):Promise.resolve()).then(()=>location.reload());return;
 case 'sclose':closeSheet();return;
 case 'ssave':if(!(sheetSave&&sheetSave()))return;closeSheet();break;
-case 'sdel':if(!(sheetDel&&sheetDel()))return;closeSheet();break;
 default:return}
 save();render()});
-document.addEventListener('keydown',e=>{if(e.key=='Escape')closeSheet()});
 
-load();applyTheme();render();
+document.addEventListener('input',e=>{if(e.target.dataset&&e.target.dataset.und!=null){const l=cur();if(!l)return;const q=P(l.id);q.und=q.und||{};q.und[e.target.dataset.und]=e.target.value;q.ownD=today();
+if(e.target.value.trim().length>=20)act().no=1;save();const c=$('undc');if(c)c.textContent=l.und.filter((u,i)=>(q.und[i]||'').trim().length>=20).length;return}
+if(e.target.id=='own'){const l=cur();if(!l)return;const q=P(l.id);q.own=e.target.value;q.ownD=today();
+if(q.own.trim().length>=15)act()[isNet(l)?'no':'o']=1;save();const hn=$('hints');if(hn)hn.innerHTML=hintsHtml(q.own)}});
+document.addEventListener('keydown',e=>{if(e.key!='Enter')return;const id=e.target.id||'';
+if(id=='ans'){e.preventDefault();doCheck()}
+else if(id.startsWith('tz_')&&tz&&!tz.res){e.preventDefault();const f=[...document.querySelectorAll('.tf input')],i=f.indexOf(e.target);if(i>=0&&i<f.length-1)f[i+1].focus();else tzCheck()}});
+document.addEventListener('change',e=>{if(e.target.id=='voice'){S.voice=e.target.value;save()}});
+
+// если приложение висело открытым, после полуночи обновляем экран
+function refresh(){if(shownDay!=today()&&!document.activeElement.matches('input,textarea'))render()}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
+window.addEventListener('pageshow',refresh);
+setInterval(refresh,60000);
+
+load();applyTheme();loadVoices();
+if('speechSynthesis' in window)speechSynthesis.onvoiceschanged=()=>{loadVoices();if(tab=='more')render()};
+render();
 if('serviceWorker' in navigator&&location.protocol=='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script></body></html>
